@@ -1,3 +1,12 @@
 [submodule "data/private"]
 	path = data/private
 	url = https://github.com/mrafee113/dotfiles-private.git
+[submodule "src/dotbot"]
+	path = src/dotbot
+	url = https://github.com/anishathalye/dotbot
+[submodule "src/dotbot-link-extra"]
+	path = src/dotbot-link-extra
+	url = https://github.com/mrafee113/dotbot-link-extra
+[submodule "src/dotbot-sudo"]
+	path = src/dotbot-sudo
+	url = https://github.com/DrDynamic/dotbot-sudo.git
