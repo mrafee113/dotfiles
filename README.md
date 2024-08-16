@@ -2,7 +2,7 @@
 
 ## Restore permissions
 
-...
+Use src/extras/restore-perms.py to restore the permissions of the cloned files.
 
 ## Enable tracking files that belong to other users
 
