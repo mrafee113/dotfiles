@@ -3,16 +3,19 @@
 set -e
 
 DOTFILES_BASEDIR="$(realpath "$(dirname "$0")/..")"
+export DOTFILES_BASEDIR
+
 DOTBOT_DIR="${DOTFILES_BASEDIR}/src/dotbot"
 PLUGINS_DIR="$DOTFILES_BASEDIR/src"
-CONFIG="sync.yaml" # TODO: make this modular later :: not necessarily through the yaml; you could make the install script dynamic to run multiple yaml files...
+SYNC_DIR="$DOTFILES_BASEDIR/sync"
 
 cd "${DOTFILES_BASEDIR}"
 git -C "${DOTBOT_DIR}" submodule sync --quiet --recursive
 git submodule update --init --recursive "${DOTBOT_DIR}"
 
-export DOTFILES_BASEDIR
-"${DOTBOT_DIR}/bin/dotbot" -d "${DOTFILES_BASEDIR}" \
-	-p "$PLUGINS_DIR/dotbot-link-extra/elink.py" \
-	-p "$PLUGINS_DIR/dotbot-sudo/sudo.py" \
-	-c "${CONFIG}" "${@}"
+while IFS=$'\n' read -r -d $'\n' CONFIG; do
+	"${DOTBOT_DIR}/bin/dotbot" -d "${DOTFILES_BASEDIR}" \
+		-p "$PLUGINS_DIR/dotbot-link-extra/elink.py" \
+		-p "$PLUGINS_DIR/dotbot-sudo/sudo.py" \
+		-c "${CONFIG}" "${@}"
+done < <(find "$SYNC_DIR" -type f -name "*.yaml" -o -name "*.yml" -o -name "*.json" | sort)
