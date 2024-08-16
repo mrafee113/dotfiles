@@ -20,6 +20,7 @@
 
         /root/.Xresources: data/root/Xresources
         /root/.dir_colors: data/root/dircolors
+        /root/.config/nvim: data/root/nvim
         /root/.vim: data/root/vim
         /root/.vimrc: data/root/vimrc
         /root/.config/ctpv/config: data/root/ctpv
