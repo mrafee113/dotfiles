@@ -1,0 +1,55 @@
+- defaults:
+    elink:
+      create: true
+      relink: true
+      force: false
+      store-perms: true
+      perms-file: $DOTFILES_BASEDIR/data/private/perms.yaml
+      backup: true
+      backup-dir: $BACKUPS_DIR/dotfiles-junkyard
+      replace: true
+    sudo:
+      -E: true
+
+- sudo:
+    - elink:
+        /etc/lightdm/lightdm.conf: data/system/lightdm/config
+        /etc/lightdm/slick-greeter.conf: data/system/lightdm/slick-greeter
+
+        /etc/systemd/sleep.conf.d/hibernatemode.conf: data/system/systemd/sleep.conf.d/hibernatemode.conf
+        /etc/systemd/system/nvidia-suspend.service.d/override.conf: data/system/systemd/nvidia-suspend.service.d/override.conf
+        /etc/systemd/system/systemd-poweroff.service.d/override.conf: data/system/systemd/systemd-poweroff.service.d/override.conf
+        /etc/systemd/system/systemd-hibernate.service.d/override.conf: data/system/systemd/systemd-hibernate.service.d/override.conf
+        /etc/systemd/system/systemd-suspend-then-hibernate.service.d/override.conf: data/system/systemd/systemd-suspend-then-hibernate.service.d/override.conf
+        /etc/systemd/journald.conf: data/system/systemd/journald.conf
+
+        /etc/mkinitcpio.conf: data/system/kernel/mkinitcpio.conf
+        /etc/modprobe.d/mhwd-gpu.conf: data/system/kernel/modprobe.d/mhwd-gpu.conf
+        /etc/modprobe.d/watchdogs.conf: data/system/kernel/modprobe.d/watchdogs.conf
+        /etc/modules-load.d/mhwd-gpu.conf: data/system/kernel/modules-load.d/mhwd-gpu.conf
+
+        /etc/default/grub: data/system/grub
+        /etc/crontab: data/system/crontab
+        /etc/pacman.d/mirrorlist: data/system/pacman-mirrors
+        /etc/fstab: data/system/fstab
+        /usr/share/applications/hakuneko-desktop.desktop: data/system/desktop-files/hakuneko.desktop
+        /etc/tsocks.conf: data/system/tsocks
+        /etc/default/keyboard: data/system/keyboard
+
+        /etc/syslog-ng:
+          path: data/system/syslog-ng/*
+          glob: true
+          exclude:
+            - data/system/syslog-ng/env
+        /etc/default/syslog-ng@default: data/system/syslog-ng/env
+
+        /etc/logrotate.conf: data/system/logrotate.conf
+        /etc/logrotate.d: data/system/logrotate.d
+
+        /etc/default/ufw: data/system/ufw
+        /etc/default/useradd: data/system/useradd
+        /etc/anacrontab: data/system/anacrontab
+        /etc/hosts: data/system/hosts
+        /etc/locale.conf: data/system/locale
+        /etc/default/locale: data/system/locale
+        /etc/rsyncd.conf: data/system/rsync

@@ -1,0 +1,134 @@
+- defaults:
+    elink:
+      create: true
+      relink: true
+      force: false
+      store-perms: true
+      perms-file: $DOTFILES_BASEDIR/data/private/perms.yaml
+      backup: true
+      backup-dir: $BACKUPS_DIR/dotfiles-junkyard
+      replace: true
+
+- elink:
+    $HOME/.npmrc: data/home/npm
+    $HOME/.jupyter/lab/user-settings: data/home/jupyter-settings
+    $HOME/.aria2c: data/home/aria2c
+    $HOME/.dir_colors: data/home/dircolors
+    $HOME/.gitconfig: data/home/gitconfig
+    $HOME/.makepkg.conf: data/home/makepkg.conf
+    $HOME/.nvidia-settings-rc: data/home/nvidia
+    $HOME/.pypirc: data/home/pypi
+    $HOME/.vimrc: data/home/vimrc
+    $HOME/.vim: data/home/vim
+    $HOME/.config/i3: data/home/i3
+    $HOME/.config/nvim: data/home/neovim
+    $HOME/.config/ruff/ruff.toml: data/home/ruff.toml
+    $HOME/.config/yamllint/config: data/home/yamllint.yaml
+    $HOME/.config/alacritty: data/home/alacritty
+    $HOME/.config/bat/config: data/home/bat
+    $HOME/.config/clipit/clipitrc: data/home/clipit
+    $HOME/.config/conky: data/home/conky
+    $HOME/.config/ctpv/config: data/home/ctpv
+    $HOME/.config/dunst/dunstrc: data/home/dunst
+    $HOME/.config/flameshot/flameshot.ini: data/home/flameshot.ini
+    # $HOME/.config/GIMP: data/home/gimp
+    $HOME/.config/glow: data/home/glow
+    $HOME/.config/htop/htoprc: data/home/htop
+    # $HOME/.config/kitty: data/home/kitty
+    $HOME/.config/Kvantum/kvantum.kvconfig: data/home/kvantum
+    $HOME/.config/mcomix: data/home/mcomix
+    $HOME/.config/ncdu/config: data/home/ncdu
+    $HOME/.config/nitrogen: data/home/nitrogen
+    $HOME/.config/polybar: data/home/polybar
+    # $HOME/.config/procps: data/home/procps
+    $HOME/.config/pulseaudio-ctl/config: data/home/pulseaudio-ctl
+    # $HOME/.config/qBittorrent: data/home/qBittorrent
+    $HOME/.config/udiskie/config.yml: data/home/udiskie.yaml
+    $HOME/.config/viewnior/viewnior.conf: data/home/viewnior
+    $HOME/.config/vlc/vlcrc: data/home/vlc
+    $HOME/.config/xarchiver/xarchiverrc: data/home/xarchiver
+    $HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml: data/home/xfce4-power-manager.xml
+    $HOME/.config/zathura: data/home/zathura
+    $HOME/.config/mimeapps.list: data/home/mimeapps.list
+    $HOME/.config/pavucontrol.ini: data/home/pavucontrol.ini
+    $HOME/.config/picom.conf: data/home/picom
+    $HOME/.config/starship.toml: data/home/starship.toml
+    $HOME/.icons/default/index.theme: data/home/icons-index.theme
+
+    $HOME/.config/nekoray/config/groups/nekoray.json: data/home/nekoray/config.json
+    $HOME/.config/nekoray/config/routes/Default: data/home/nekoray/routes.json
+
+    $HOME/.gtkrc-2.0: data/home/gtk/gtk-2.0.ini
+    $HOME/.config/gtk-3.0/settings.ini: data/home/gtk/gtk-3.0.ini
+    $HOME/.config/gtk-2.0/gtkfilechooser.ini: data/home/gtk/file-chooser.ini
+
+    $HOME/.config/cheat/conf.yml: data/home/cheat/conf.yaml
+    $HOME/.config/cheat/cheatsheets:
+      path: data/home/cheat/cheatsheets/*
+      glob: true
+
+    $HOME/.Xclients: data/home/X/Xclients
+    $HOME/.xinitrc: data/home/X/Xinitrc
+    $HOME/.xprofile: data/home/X/Xprofile
+    $HOME/.Xresources: data/home/X/Xresources
+
+    $HOME/.bash_profile: data/home/shell/bprofile
+    $HOME/.bashrc: data/home/shell/bash
+    $HOME/.profile: data/home/shell/profile
+    $HOME/.zprofile: data/home/shell/zprofile
+    $HOME/.zshrc: data/home/shell/zsh
+    $HOME/.zshrc.zni: data/home/shell/zni
+    $HOME/.zimrc: data/home/shell/zim
+
+    $HOME/.todo: data/private/home/todo
+    $HOME/.histfile: data/private/home/histfile
+    $HOME/.lesshst: data/private/home/less.history
+    $HOME/.mupdf.history: data/private/home/mupdf.history
+    $HOME/.psql_history: data/private/home/psql.history
+    $HOME/.python_history: data/private/home/python.history
+    $HOME/.viminfo: data/private/home/viminfo
+    $HOME/.vim/.netrwhist: data/private/home/vim.netrwhist
+    $HOME/.zcompdump: data/private/home/zcompdump
+    $HOME/.cache/.bluetoothctl_history: data/private/home/bluetoothctl.history
+    $HOME/.local/share/rofi/rofi_calc_history: data/private/home/rofi-calc.history
+
+    $HOME/.local/state/syncthing/config.xml: data/private/home/syncthing/config.xml
+    $HOME/.local/state/syncthing/cert.pem: data/private/home/syncthing/cert.pem
+    $HOME/.local/state/syncthing/https-cert.pem: data/private/home/syncthing/https-cert.pem
+    $HOME/.local/state/syncthing/https-key.pem: data/private/home/syncthing/https-key.pem
+    $HOME/.local/state/syncthing/key.pem: data/private/home/syncthing/key.pem
+
+    $HOME/.local/bin/ci3:
+      path: data/home/scripts/i3/*
+      glob: true
+    $HOME/.local/bin/batman-s: data/home/scripts/batman
+    $HOME/.local/bin/battery-alert.sh: data/home/scripts/battery-alerts.sh
+    $HOME/.local/bin/virtualenvwrapper-s.sh: data/home/scripts/virtualenvwrapper.sh
+
+    $HOME/.local/share/app.hiddify.com/current-config.json: data/home/hiddify/config.json
+    $HOME/.local/share/app.hiddify.com/shared_preferences.json: data/home/hiddify/preferences.json
+
+    $HOME/.local/share/lf/history: data/private/home/lf.history
+    $HOME/.config/lf: data/home/lf
+    $HOME/.local/share/lf/marks: data/home/lf/marks
+
+    $HOME/.config/hakuneko-desktop/hakuneko.bookmarks: data/home/hakuneko/bookmarks
+    $HOME/.config/hakuneko-desktop/hakuneko.chaptermarks: data/home/hakuneko/chaptermarks
+    $HOME/.config/hakuneko-desktop/hakuneko.settings: data/home/hakuneko/settings
+
+    $HOME/.config/obsidian/Custom Dictionary.txt: data/home/obsidian/dictionary
+    $HOME/.config/obsidian/Preferences: data/home/obsidian/preferences
+
+    $HOME/.config/Pinta/palette.txt: data/home/pinta/palette
+    $HOME/.config/Pinta/settings.xml: data/home/pinta/settings.xml
+
+    $HOME/.config/qalculate/qalc.cfg: data/home/qalc
+    $HOME/.config/qalculate/qalc.history: data/private/home/qalc.history
+
+    $HOME/.config/rofi/theme.rasi: data/home/rofi/theme.rasi
+    $HOME/.config/rofi/config.rasi: data/home/rofi/config.rasi
+    $HOME/.config/rofi/cache: data/private/home/rofi-cache
+
+    $HOME/.config/user-dirs.conf: data/home/user-dirs/config
+    $HOME/.config/user-dirs.dirs: data/home/user-dirs/dirs
+    $HOME/.config/user-dirs.locale: data/home/user-dirs/locale

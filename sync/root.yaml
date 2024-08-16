@@ -1,0 +1,36 @@
+- defaults:
+    elink:
+      create: true
+      relink: true
+      force: false
+      store-perms: true
+      perms-file: $DOTFILES_BASEDIR/data/private/perms.yaml
+      backup: true
+      backup-dir: $BACKUPS_DIR/dotfiles-junkyard
+      replace: true
+    sudo:
+      -E: true
+
+- sudo:
+    - elink:
+        /root/.histfile: data/private/root/histfile
+        /root/.zcompdump: data/private/root/zcompdump
+        /root/.viminfo: data/private/root/viminfo
+        /root/.lesshst: data/private/root/less.history
+
+        /root/.Xresources: data/root/Xresources
+        /root/.dir_colors: data/root/dircolors
+        /root/.vim: data/root/vim
+        /root/.vimrc: data/root/vimrc
+        /root/.config/ctpv/config: data/root/ctpv
+        /root/.config/dunst/dunstrc: data/root/dunst
+        /root/.config/lf: data/root/lf
+        /root/.local/share/lf/marks: data/root/lf-marks
+        /root/.config/mimeapps.list: data/root/mimeapps.list
+        /root/.config/htop/htoprc: data/root/htop
+
+        /root/.zshrc.zni: data/root/shell/zni
+        /root/.zshrc: data/root/shell/zsh
+        /root/.zimrc: data/root/shell/zim
+        /root/.profile: data/root/shell/profile
+        /root/.bash_profile: data/root/shell/bprofile
