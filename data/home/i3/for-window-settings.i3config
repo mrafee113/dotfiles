@@ -1,0 +1,49 @@
+# i3 config file (v4)
+
+# ---------------------
+# # for_window settings
+# ---------------------
+
+# for_window [class="calamares"] floating enable border normal
+# for_window [class="Clipgrab"] floating enable
+# for_window [title="File Transfer*"] floating enable
+# for_window [class="fpakman"] floating enable
+# for_window [class="Galculator"] floating enable border pixel 1
+# for_window [class="Oblogout"] fullscreen enable
+# for_window [class="octopi"] floating enable
+# for_window [class="Simple-scan"] floating enable border normal
+# for_window [class="(?i)System-config-printer.py"] floating enable border normal
+# for_window [title="About Pale Moon"] floating enable
+for_window [title="alsamixer"]				              floating enable, border pixel  1
+for_window [class="gnome-calculator"]		              floating enable, border pixel  0
+for_window [class="GParted"]				              floating enable, border normal
+for_window [title="i3_help"]				              floating enable, sticky enable, border normal
+for_window [class="Lightdm-settings"]		              floating enable
+for_window [class="Lxappearance"]			              floating enable, sticky enable, border normal
+for_window [class="Manjaro-hello"]			              floating enable
+for_window [class="Manjaro Settings Manager"]             floating enable, border normal
+for_window [class="Nitrogen"]				              floating enable, sticky enable, border normal
+for_window [class="Pamac-manager"]			              floating enable
+for_window [class="Pamac-updater"]			              floating enable
+for_window [class="Pavucontrol"]			              floating enable
+for_window [class="Qtconfig-qt4"]			              floating enable, sticky enable, border normal
+for_window [class="qt5ct"]					              floating enable, sticky enable, border normal
+for_window [class="(?i)System-config-printer.py"]         floating enable, border normal
+for_window [class="(?i)virtualbox"]			              floating enable, border normal
+for_window [class="Blueman-manager"]			          floating enable, border normal
+for_window [class="nekoray"]					          floating enable, border normal
+for_window [class="Hiddify"]					          floating enable, border normal
+# for_window [class="qBittorrent"]				          floating enable, border normal
+for_window [class="Gnome-pomodoro"]				          floating enable, border normal
+for_window [class="TelegramDesktop"]			          floating enable, border pixel 1
+for_window [class="pavucontrol"]			              floating enable, border pixel 1
+
+# ci3
+for_window [title="cheat-modal-window"]			          floating enable, border pixel 1, resize set width 1000 px height 500 px, move position center
+for_window [title="man-modal-window"]			          floating enable, border pixel 1, resize set width 1000 px height 500 px, move position center
+for_window [title="credentials-modal-window"]	          floating enable, border pixel 1, resize set width  600 px height 250 px, move position center
+for_window [title="credentials-edit-modal-window"]        floating enable, border pixel 1, resize set width 1000 px height 500 px, move position center
+for_window [title="lf-filepicker-modal-window"]           floating enable, border pixel 1, resize set width  770 px height 500 px, move position center
+for_window [title="markdown-modal-window"]                floating enable, border pixel 1, resize set width 1250 px height 700 px, move position center
+for_window [class="Alacritty" title="floating-alacritty"] floating enable, border pixel 1, resize set width  750 px height 450 px, move position center
+for_window [class="Alacritty" title="floating-lf"]        floating enable, border pixel 1, resize set width  750 px height 450 px, move position center

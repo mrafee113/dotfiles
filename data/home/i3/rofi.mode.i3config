@@ -1,0 +1,22 @@
+# i3 config file (v4)
+
+# -----------
+# # rofi mode
+# -----------
+
+# # commented out since I couldn't find a decent binding... or just didn't really feel like it.
+# set $rofi_mode rofi (d)run, (r)un, (w)indow, (f)ilebrowser, (k)eys
+# 
+# mode "$rofi_mode" {
+# 	bindsym d exec --no-startup-id rofi -show drun        -sidebar-mode, mode "default"
+# 	bindsym r exec --no-startup-id rofi -show run         -sidebar-mode, mode "default"
+# 	bindsym w exec --no-startup-id rofi -show window      -sidebar-mode, mode "default"
+# 	bindsym f exec --no-startup-id rofi -show filebrowser -sidebar-mode, mode "default"
+# 	bindsym k exec --no-startup-id rofi -show keys        -sidebar-mode, mode "default"
+# 	bindsym Return														 mode "default"
+# 	bindsym Escape														 mode "default"
+# }
+
+# bindsym $mod+ctrl+space mode "$rofi_mode"
+bindsym $mod+ctrl+space  exec --no-startup-id rofi -show drun -sidebar-mode
+bindsym Ctrl+Shift+q     exec --no-startup-id rofi -show calc -modi calc -no-show-match -no-sort

@@ -1,0 +1,276 @@
+# i3 config file (v4)
+
+# ------------------------
+# # change container focus
+# ------------------------
+# note that vim bindings caused unknown error. reproce again and observe.
+bindsym $mod+h				 focus left
+bindsym $mod+j				 focus down
+bindsym $mod+k				 focus up
+bindsym $mod+l       		 focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left			 focus left
+bindsym $mod+Down			 focus down
+bindsym $mod+Up				 focus up
+bindsym $mod+Right			 focus right
+
+# ---------------------
+# # move focused window
+# ---------------------
+bindsym $mod+Shift+h		 move  left
+bindsym $mod+Shift+j         move  down
+bindsym $mod+Shift+k         move  up
+bindsym $mod+Shift+l         move  right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left      move  left
+bindsym $mod+Shift+Down      move  down
+bindsym $mod+Shift+Up        move  up
+bindsym $mod+Shift+Right     move  right
+
+# ----------------
+# # container mode
+# ----------------
+
+# split in horizontal orientation
+bindsym $mod+Shift+v	 split      h
+
+# split in vertical orientation
+bindsym $mod+v			 split      v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f			 fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s			 layout     stacking
+bindsym $mod+w			 layout     tabbed
+bindsym $mod+e			 layout     default
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating   toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space		 focus		mode_toggle
+
+# focus the parent container
+bindsym $mod+a			 focus		parent
+
+# focus the child container
+#bindsym $mod+d			 focus	    child
+
+# toggle sticky
+bindsym $mod+Shift+s	 sticky     toggle
+
+# move to the current focused window to scratchpad
+bindsym $mod+Ctrl+minus move	    scratchpad
+# show the next scratchpad window or hide the focused scratchpad window
+# if there are multiple scratchpad windows, this will cycle through them
+bindsym $mod+minus       scratchpad show
+
+# -------------------
+# # container borders
+# -------------------
+
+# default border style for new windows
+default_border pixel 2
+
+# only for windows that are created in floating mode
+default_floating_border normal
+
+hide_edge_borders smart
+
+# change borders
+#bindsym $mod+u border none
+#bindsym $mod+y border pixel 1
+#bindsym $mod+n border normal
+
+# ---------------------
+# # containers etcetera
+# ---------------------
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym h		  resize shrink width  50 px or 10 ppt
+        bindsym j		  resize grow   height 50 px or 10 ppt
+        bindsym k		  resize shrink height 50 px or 10 ppt
+        bindsym l         resize grow   width  50 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left	  resize grow   width  50 px or 10 ppt
+        bindsym Down	  resize shrink height 50 px or 10 ppt
+        bindsym Up		  resize grow   height 50 px or 10 ppt
+        bindsym Right	  resize shrink width  50 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return	  mode "default"
+        bindsym Escape	  mode "default"
+        bindsym $mod+r	  mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# move tiling windows via drag & drop by left-clicking into the title bar,
+# or left-clicking anywhere into the window while holding the floating modifier.
+tiling_drag modifier titlebar
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# move tiling window to center
+bindsym $mod+Ctrl+c move position center
+
+# -----------
+# # workspace
+# -----------
+
+# use a prev variable to remember the last workspace
+# workspace back and forth (with/without active container)
+workspace_auto_back_and_forth yes
+bindsym $mod+b		    workspace back_and_forth
+bindsym $mod+Shift+b    move container to workspace back_and_forth; workspace back_and_forth
+
+# navigate workspaces
+bindsym $mod+Ctrl+l     workspace next
+bindsym $mod+Ctrl+Right workspace next
+bindsym $mod+Ctrl+h     workspace prev
+bindsym $mod+Ctrl+Left  workspace prev
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set		$ws1  "1"
+set		$ws2  "2"
+set		$ws3  "3"
+set		$ws4  "4"
+set		$ws5  "5"
+set		$ws6  "6"
+set		$ws7  "7"
+set		$ws8  "8"
+set		$ws9  "9"
+set		$ws10 "10"
+set		$ws_desktop "0: desktop"
+
+# switch to workspace
+bindsym $mod+1		 workspace                   number $ws1
+bindsym $mod+2		 workspace                   number $ws2
+bindsym $mod+3		 workspace                   number $ws3
+bindsym $mod+4		 workspace                   number $ws4
+bindsym $mod+5		 workspace                   number $ws5
+bindsym $mod+6		 workspace                   number $ws6
+bindsym $mod+7		 workspace                   number $ws7
+bindsym $mod+8		 workspace                   number $ws8
+bindsym $mod+9		 workspace                   number $ws9
+bindsym $mod+0		 workspace                   number $ws10
+bindsym $mod+d		 workspace					        $ws_desktop
+
+# move focused container to workspace
+bindsym $mod+Ctrl+1  move container to workspace number $ws1
+bindsym $mod+Ctrl+2  move container to workspace number $ws2
+bindsym $mod+Ctrl+3  move container to workspace number $ws3
+bindsym $mod+Ctrl+4  move container to workspace number $ws4
+bindsym $mod+Ctrl+5  move container to workspace number $ws5
+bindsym $mod+Ctrl+6  move container to workspace number $ws6
+bindsym $mod+Ctrl+7  move container to workspace number $ws7
+bindsym $mod+Ctrl+8  move container to workspace number $ws8
+bindsym $mod+Ctrl+9  move container to workspace number $ws9
+bindsym $mod+Ctrl+0  move container to workspace number $ws10
+
+# move to workspace with focused container
+bindsym $mod+Shift+1 move container to workspace number $ws1;  workspace $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2;  workspace $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3;  workspace $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4;  workspace $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5;  workspace $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6;  workspace $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7;  workspace $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8;  workspace $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9;  workspace $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10; workspace $ws10
+
+bindsym $mod+Ctrl+Shift+l     move container to workspace next; workspace next
+bindsym $mod+Ctrl+Shift+Right move container to workspace next; workspace next
+bindsym $mod+Ctrl+Shift+h     move container to workspace prev; workspace prev
+bindsym $mod+Ctrl+Shift+Left  move container to workspace prev; workspace prev
+
+# switch to workspace with urgent window automatically
+for_window [urgent=latest] focus
+
+# ---------
+# # i3-gaps
+# # copied/modified from manjaro
+# ------------------------------
+
+# Set inner/outer gaps
+gaps inner 14
+gaps outer -10
+
+# Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
+# gaps inner|outer current|all set|plus|minus <px>
+# gaps inner all set 10
+# gaps outer all plus 5
+
+# Smart gaps (gaps used if only more than one container on the workspace)
+smart_gaps on
+# smart_gaps inverse_outer
+
+# Smart borders (draw borders around container only if it is not the only container on this workspace)
+# on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
+# smart_borders on
+
+# Press $mod+Shift+g to enter the gap mode.
+# Choose o or i for modifying outer/inner gaps.
+# Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace).
+# If you also press Shift with these keys, the change will be global for all workspaces.
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+        bindsym o			mode "$mode_gaps_outer"
+        bindsym i			mode "$mode_gaps_inner"
+        bindsym Return		mode "default"
+        bindsym Escape		mode "default"
+}
+mode "$mode_gaps_inner" {
+        bindsym plus		gaps inner current plus 5
+        bindsym minus		gaps inner current minus 5
+        bindsym 0			gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return		mode "default"
+        bindsym Escape		mode "default"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus		gaps outer current plus 5
+        bindsym minus		gaps outer current minus 5
+        bindsym 0			gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return		mode "default"
+        bindsym Escape		mode "default"
+}
+
+# # --------------------------
+# # # mark input focus binding
+# # --------------------------
+# 
+# bindsym $mod+Shift+m exec i3-input -F 'mark %s'               -P 'Mark: '
+# bindsym $mod+g exec i3-input -F '[con_mark="%s"] focus' -P 'Goto: '
+# bindsym $mod+u exec i3-input -F 'unmark %s'             -P 'Unmark: '
+# bindsym $mod+Shift+u unmark

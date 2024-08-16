@@ -1,0 +1,22 @@
+# i3 config file (v4)
+
+# # --------------------
+# # # mode: app-launcher
+# # --------------------
+# # produced errors that I couldn't figure out.
+# #
+#
+# # mode name variable
+# set $mode_launcher Launch: firefox terminal
+# # bind to key
+# bindsym $mod+o "$mode_launcher"
+# # declare mode
+# mode "$mode_launcher" {
+# 	bindsym f exec firefox
+# 	bindsym t exec --no-startup-id i3-sensible-terminal
+#
+# 	# return to default mode
+# 	# bindsym	Escape mode "default"
+# 	# bindsym Return mode "default"
+# 	bindsym $mod+d mode "default"
+# }

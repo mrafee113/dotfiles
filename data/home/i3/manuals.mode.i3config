@@ -1,0 +1,13 @@
+# i3 config file (v4)
+
+# ---------
+# # manuals
+# ---------
+set $mode_man manuals: (v)iew, re(g)enerate list
+bindsym $mod+i mode "$mode_man"
+mode "$mode_man" {
+	bindsym v      exec --no-startup-id ci3-manuals-manager.sh view,     mode "default"
+	bindsym g      exec --no-startup-id ci3-manuals-manager.sh gen-list, mode "default"
+	bindsym Return														 mode "default"
+	bindsym Escape													     mode "default"
+}

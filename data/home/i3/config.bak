@@ -1,0 +1,947 @@
+#
+# Should you change your keyboard layout some time, delete
+# this file and re-run i3-config-wizard(1).
+#
+
+# i3 config file (v4)
+# Please see https://i3wm.org/docs/userguide.html for a complete reference!
+
+# ----------------------------------
+# reference for keyboard keys syntax
+# ----------------------------------
+# - refer to `xmodmap -pm` and `xmodmap -pke`
+#
+# shift,   Shift_L,   Shift_R
+# control, Control_L, Control_R
+# lock,    Caps_Lock
+# mod1,    Alt_L,     Alt_R, Meta_L
+# mod4,    Super_L,   Super_R, Hyper_L
+#
+# keycode keysym[s]
+#  37     Control_L
+# 105     Control_R
+#  50     Shift_L
+#  62     Shift_R
+#  64     Alt_L, Meta_L
+# 108     Alt_R, Meta_R
+# 133     Super_L
+# 134     Super_R
+#  66     Caps_Lock      
+#
+#  36     Return
+#  22     Backspace
+#  23     Tab
+#  65     space
+# 135     Menu
+#
+# 107     Print, Sys_Req
+# 118     Insert
+# 119     Delete
+# 110     Home
+# 115     End
+# 112     Prior
+# 117     Next
+#
+# 111     Up
+# 113     Left
+# 114     Right
+# 116     Down
+#
+#  10     1,              exclam      !
+#  11     2,              at          @
+#  12     3,              numbersign  #
+#  13     4,              dollar      $
+#  14     5,              percent     %
+#  15     6,              asciicircum ^
+#  16     7,              ampersand   &
+#  17     8,              asterisk    *
+#  18     9,              parenleft   (
+#  19     0,              parenright  )
+#  20     minus        -, underscore  _
+#  21     equal        =, plus        +
+#  34     bracketleft  [, braceleft   {
+#  35     bracketright ], braceright  }
+#  47     semicolon    ;, colon       :
+#  48     apostrophe   ', quotedbl    "
+#  49     grave        `, asciitilde  ~
+#  51     backslash    \, bar         |
+#  59     comma        ,, less        <
+#  60     period       ., greated     >
+#  61     slash        /, question    ?
+#
+# 121     XF86AudioMute
+# 122     XF86AudioLowerVolume
+# 123     XF86AudioRaiseVolume
+# 124     XF86PowerOff
+# 128     XF86LaunchA
+# 171     XF86AudioNext
+# 172     XF86AudioPlay, XF86AudioPause
+# 173     XF86AudioPrev
+# 174     XF86AudioStop
+# 185     XF86ScrollUp
+# 186     XF86ScrollDown
+
+# super key for i3 modifier
+set $mod Mod4
+
+# ------------------
+# # keyboard layouts
+# ------------------
+exec --no-startup-id setxkbmap -layout us,ir -variant ,pes_keypad -option grp:rctrl_rshift_toggle
+bindsym Shift+Ctrl+F4 exec --no-startup-id setxkbmap -layout us
+bindsym Shift+Ctrl+F5 exec --no-startup-id "setxkbmap -layout us,ir -variant ,pes_keypad -option grp:rctrl_rshift_toggle"
+
+# ---------
+# # i3 font
+# ---------
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+# arch pkg ttf-jetbrains-mono-nerd
+font pango:JetBrainsMono Nerd Font Regular 11
+
+# ------------------------------------
+# # Screen Brightness controls (manjaro)
+# ------------------------------------
+# bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
+# bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
+
+# ------------
+# # pulseaudio
+# ------------
+
+# # i3-config-wizard produced this btw
+# Use pactl to adjust volume in PulseAudio.
+# set $refresh_i3status killall -SIGUSR1 i3status
+# bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+# bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+# bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+# bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# # manjaro config
+# works with pulseaudio and .config/scripts/volume
+# bindsym XF86AudioPlay exec playerctl play
+# bindsym XF86AudioPause exec playerctl pause
+# bindsym XF86AudioNext exec playerctl next
+# bindsym XF86AudioPrev exec playerctl previous
+
+bindsym XF86AudioMute		 exec --no-startup-id pulseaudio-ctl mute
+bindsym XF86AudioLowerVolume exec --no-startup-id pulseaudio-ctl down
+bindsym XF86AudioRaiseVolume exec --no-startup-id pulseaudio-ctl up
+
+# exec --no-startup-id volumeicon
+# bindsym $mod+Ctrl+m exec --no-startup-id i3-sensible-terminal -e 'alsamixer'
+exec --no-startup-id pulseaudio
+#exec --no-startup-id pa-applet
+bindsym $mod+Ctrl+v exec pavucontrol
+
+# --------------
+# # app keybinds
+# --------------
+
+# Bash scripts providing a collection of terminal applications in a simple UI
+# https://github.com/puxplaying/toolbox/
+# bindsym $mod+Ctrl+b exec --no-startup-id i3-sensible-terminal -e 'bmenu'
+
+# https://calamares.io/
+# https://gitlab.manjaro.org/applications/calamares
+# bindsym $mod+i exec calamares_polkit
+
+# bindsym $mod+Ctrl+a exec --no-startup-id i3-sensible-terminal -e 'setup'
+
+# bindsym $mod+F2 exec palemoon
+bindsym $mod+F2 exec firefox
+
+# bindsym $mod+F3 exec pcmanfm
+# bindsym $mod+Shift+F3 exec nemo $HOME/Bedroom
+# WARNING: TODO: LS_COLORS is getting overwritten somewhere between login .zprofile and terminal call - that's as far as I know I'm afraid
+bindsym $mod+F3 exec --no-startup-id i3-sensible-terminal -e zsh -c "eval \$(dircolors ~/.dir_colors) && lf"
+
+# An ncurses console audio player designed to be powerful and easy to use
+# https://moc.daper.net/
+# bindsym $mod+F5 exec --no-startup-id i3-sensible-terminal -e 'mocp'  # musid
+
+# simple screenshot script using scrot
+# https://classicforum.manjaro.org/index.php?topic=31977.msg261964#msg261964
+# bindsym Print exec --no-startup-id i3-scrot
+# bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
+# bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
+bindsym Print exec --no-startup-id "flameshot gui"
+bindsym Shift+Print exec --no-startup-id "flameshot full --region '1920x1080+0+0'"
+
+# bindsym $mod+Shift+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
+
+# kill a client by its X resource
+# when run without arguments a cursor will appear to choose a non-root window to kill
+bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
+
+bindsym Ctrl+Return exec gnome-calculator
+
+# terminal
+# /usr/bin/terminal belongs to i3-scripts which is just a bash script that calls urxvt
+#bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec --no-startup-id alacritty
+
+# start dmenu (a program launcher)
+# bindsym $mod+d exec --no-startup-id dmenu_run
+# A more modern dmenu replacement is rofi:
+# bindcode $mod+40 exec "rofi -modi drun,run -show drun"
+# There also is i3-dmenu-desktop which only displays applications shipping a
+# .desktop file. It is a wrapper around dmenu, so you need that installed.
+# bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
+# bindsym $mod+d exec --no-startup-id dmenu_recency
+
+# launch categorized menu (manjaro)
+# bindsym $mod+z exec --no-startup-id morc_menu
+
+# --------------------
+# # mode: i3 restarter
+# --------------------
+
+set $mode_restarter restart: (c)onky, (d)unst, (p)icom, (P)olybar, (h)iddify, (n)ekoray, mode (q)uit
+set $mode_quitter quit: (c)onky, (d)unst, (p)icom, (P)olybar, (h)iddify, (n)ekoray
+bindsym $mod+Ctrl+r mode "$mode_restarter"
+mode "$mode_restarter" {
+	bindsym p       exec --no-startup-id ci3-restarter.sh --app picom,   mode "default"
+	bindsym Shift+p exec --no-startup-id ci3-restarter.sh --app polybar, mode "default"
+	bindsym d	    exec --no-startup-id ci3-restarter.sh --app dunst,   mode "default"
+	bindsym c       exec --no-startup-id ci3-restarter.sh --app conky,   mode "default"
+	bindsym h		exec --no-startup-id ci3-restarter.sh --app hiddify, mode "default"
+	bindsym n		exec --no-startup-id ci3-restarter.sh --app nekoray, mode "default"
+	bindsym q															 mode "$mode_quitter"
+	bindsym Return													     mode "default"
+    bindsym Escape													     mode "default"
+}
+mode "$mode_quitter" {
+	bindsym p       exec --no-startup-id ci3-restarter.sh --cmd quit --app picom,   mode "default"
+	bindsym Shift+p exec --no-startup-id ci3-restarter.sh --cmd quit --app polybar, mode "default"
+	bindsym d	    exec --no-startup-id ci3-restarter.sh --cmd quit --app dunst,   mode "default"
+	bindsym c       exec --no-startup-id ci3-restarter.sh --cmd quit --app conky,   mode "default"
+	bindsym h		exec --no-startup-id ci3-restarter.sh --cmd quit --app hiddify, mode "default"
+	bindsym n		exec --no-startup-id ci3-restarter.sh --cmd quit --app nekoray, mode "default"
+	bindsym Return																    mode "default"
+    bindsym Escape																	mode "default"
+}
+
+# ----------------
+# # mode: dunstctl
+# ----------------
+
+set $mode_dunstctl dunst: (c)lose last, (C)lose all, (s)how last
+bindsym $mod+Ctrl+h mode "$mode_dunstctl"
+mode "$mode_dunstctl" {
+	bindsym c	    exec --no-startup-id dunstctl close,       mode "default"
+	bindsym Shift+c exec --no-startup-id dunstctl close-all,   mode "default"
+	bindsym s	    exec --no-startup-id dunstctl history-pop, mode "default"
+	bindsym Return	 										   mode "default"
+	bindsym Escape	 										   mode "default"
+}
+
+# # --------------------
+# # # mode: app-launcher
+# # --------------------
+# # produced errors that I couldn't figure out.
+# #
+# 
+# # mode name variable
+# set $mode_launcher Launch: firefox terminal
+# # bind to key
+# bindsym $mod+o "$mode_launcher"
+# # declare mode
+# mode "$mode_launcher" {
+# 	bindsym f exec firefox
+# 	bindsym t exec --no-startup-id i3-sensible-terminal
+# 
+# 	# return to default mode
+# 	# bindsym	Escape mode "default"
+# 	# bindsym Return mode "default"
+# 	bindsym $mod+d mode "default"
+# }
+
+# -------------------------------
+# # floating mode per-app setting
+# -------------------------------
+
+# for_window [class="calamares"] floating enable border normal
+# for_window [class="Clipgrab"] floating enable
+# for_window [title="File Transfer*"] floating enable
+# for_window [class="fpakman"] floating enable
+# for_window [class="Galculator"] floating enable border pixel 1
+# for_window [class="Oblogout"] fullscreen enable
+# for_window [class="octopi"] floating enable
+# for_window [class="Simple-scan"] floating enable border normal
+# for_window [class="(?i)System-config-printer.py"] floating enable border normal
+# for_window [title="About Pale Moon"] floating enable
+for_window [title="alsamixer"]				       floating enable, border pixel  1
+for_window [class="gnome-calculator"]		       floating enable, border pixel  0
+for_window [class="GParted"]				       floating enable, border normal
+for_window [title="i3_help"]				       floating enable, sticky enable, border normal
+for_window [class="Lightdm-settings"]		       floating enable
+for_window [class="Lxappearance"]			       floating enable, sticky enable, border normal
+for_window [class="Manjaro-hello"]			       floating enable
+for_window [class="Manjaro Settings Manager"]      floating enable, border normal
+for_window [class="Nitrogen"]				       floating enable, sticky enable, border normal
+for_window [class="Pamac-manager"]			       floating enable
+for_window [class="Pamac-updater"]			       floating enable
+for_window [class="Pavucontrol"]			       floating enable
+for_window [class="Qtconfig-qt4"]			       floating enable, sticky enable, border normal
+for_window [class="qt5ct"]					       floating enable, sticky enable, border normal
+for_window [class="(?i)System-config-printer.py"]  floating enable, border normal
+for_window [class="(?i)virtualbox"]			       floating enable, border normal
+for_window [class="Blueman-manager"]			   floating enable, border normal
+for_window [class="nekoray"]					   floating enable, border normal
+for_window [class="Hiddify"]					   floating enable, border normal
+# for_window [class="qBittorrent"]				   floating enable, border normal
+for_window [class="Gnome-pomodoro"]				   floating enable, border normal
+for_window [class="TelegramDesktop"]			   floating enable, border pixel 1
+for_window [class="pavucontrol"]			       floating enable, border pixel 1
+
+for_window [title="cheat-modal-window"]			   floating enable, border pixel 1, resize set width 1000 px height 500 px, move position center
+for_window [title="man-modal-window"]			   floating enable, border pixel 1, resize set width 1000 px height 500 px, move position center
+for_window [title="credentials-modal-window"]	   floating enable, border pixel 1, resize set width  600 px height 250 px, move position center
+for_window [title="credentials-edit-modal-window"] floating enable, border pixel 1, resize set width 1000 px height 500 px, move position center
+for_window [title="lf-filepicker-modal-window"]    floating enable, border pixel 1, resize set width  770 px height 500 px, move position center
+for_window [title="markdown-modal-window"]         floating enable, border pixel 1, resize set width 1250 px height 700 px, move position center
+
+# ------------------------
+# # autostart applications
+# ------------------------
+
+# Start XDG autostart .desktop files using dex. See also
+# https://wiki.archlinux.org/index.php/XDG_Autostart
+exec --no-startup-id dex --autostart --environment i3
+
+exec --no-startup-id flameshot
+
+# NetworkManager is the most popular way to manage wireless networks on Linux,
+# and nm-applet is a desktop environment-independent system tray GUI for it.
+exec --no-startup-id nm-applet
+
+exec --no-startup-id /usr/lib/plkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id nitrogen --restore; sleep 1; picom -b
+# exec --no-startup-id manjaro-hello 
+exec --no-startup-id xfce4-power-manager
+# exec --no-startup-id pamac-tray
+exec --no-startup-id clipit
+exec --no-startup-id blueman-applet
+# exec --no-startup-id sbxkb
+exec_always --no-startup-id $HOME/.config/conky/launch.sh
+exec --no-startup-id xautolock -time 20 -locker blurlock
+exec_always --no-startup-id ff-theme-util
+exec_always --no-startup-id fix_xcursor
+exec --no-startup-id nekoray
+exec --no-startup-id hiddify
+exec --no-startup-id udiskie
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec --no-startup-id syncthing
+
+# ------------------
+# # rofi keybindings
+# ------------------
+
+set $rofi_mode rofi (d)run, (r)un, (w)indow, (f)ilebrowser, (k)eys
+
+mode "$rofi_mode" {
+	bindsym d exec --no-startup-id rofi -show drun        -sidebar-mode, mode "default"
+	bindsym r exec --no-startup-id rofi -show run         -sidebar-mode, mode "default"
+	bindsym w exec --no-startup-id rofi -show window      -sidebar-mode, mode "default"
+	bindsym f exec --no-startup-id rofi -show filebrowser -sidebar-mode, mode "default"
+	bindsym k exec --no-startup-id rofi -show keys        -sidebar-mode, mode "default"
+	bindsym Return														 mode "default"
+	bindsym Escape														 mode "default"
+}
+
+bindsym $mod+Ctrl+space mode "$rofi_mode"
+bindsym Ctrl+space       exec --no-startup-id rofi -show drun -sidebar-mode
+bindsym Ctrl+Shift+q     exec --no-startup-id rofi -show calc -modi calc -no-show-match -no-sort
+
+# ------------------------
+# # change container focus
+# ------------------------
+# note that vim bindings caused unknown error. reproce again and observe.
+bindsym $mod+j				 focus left
+bindsym $mod+k				 focus down
+bindsym $mod+l				 focus up
+bindsym $mod+semicolon		 focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left			 focus left
+bindsym $mod+Down			 focus down
+bindsym $mod+Up				 focus up
+bindsym $mod+Right			 focus right
+
+# ---------------------
+# # move focused window
+# ---------------------
+bindsym $mod+Shift+j		 move  left
+bindsym $mod+Shift+k         move  down
+bindsym $mod+Shift+l         move  up
+bindsym $mod+Shift+semicolon move  right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left      move  left
+bindsym $mod+Shift+Down      move  down
+bindsym $mod+Shift+Up        move  up
+bindsym $mod+Shift+Right     move  right
+
+# ----------------
+# # container mode
+# ----------------
+
+# split in horizontal orientation
+bindsym $mod+h			 split      h
+
+# split in vertical orientation
+bindsym $mod+v			 split      v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f			 fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s			 layout     stacking
+bindsym $mod+w			 layout     tabbed
+bindsym $mod+e			 layout     default
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating   toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space		 focus		mode_toggle
+
+# focus the parent container
+bindsym $mod+a			 focus		parent
+
+# focus the child container
+#bindsym $mod+d			 focus	    child
+
+# toggle sticky
+bindsym $mod+Shift+s	 sticky     toggle
+
+# move to the current focused window to scratchpad
+bindsym $mod+Shift+minus move	    scratchpad
+# show the next scratchpad window or hide the focused scratchpad window
+# if there are multiple scratchpad windows, this will cycle through them
+bindsym $mod+minus       scratchpad show
+
+# -------------------
+# # container borders
+# -------------------
+
+# default border style for new windows
+default_border pixel 0
+
+# only for windows that are created in floating mode
+default_floating_border normal
+
+hide_edge_borders none
+
+# change borders
+#bindsym $mod+u border none
+#bindsym $mod+y border pixel 1
+#bindsym $mod+n border normal
+
+# ---------------------
+# # containers etcetera
+# ---------------------
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        # bindsym j		  resize shrink width  50 px or 10 ppt
+        # bindsym k		  resize grow   height 50 px or 10 ppt
+        # bindsym l		  resize shrink height 50 px or 10 ppt
+        # bindsym semicolon resize grow   width  50 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left	  resize grow   width  50 px or 10 ppt
+        bindsym Down	  resize shrink height 50 px or 10 ppt
+        bindsym Up		  resize grow   height 50 px or 10 ppt
+        bindsym Right	  resize shrink width  50 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return	  mode "default"
+        bindsym Escape	  mode "default"
+        bindsym $mod+r	  mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# move tiling windows via drag & drop by left-clicking into the title bar,
+# or left-clicking anywhere into the window while holding the floating modifier.
+tiling_drag modifier titlebar
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# move tiling window to center
+bindsym $mod+Ctrl+c move position center
+
+# -----------
+# # workspace
+# -----------
+
+# use a prev variable to remember the last workspace
+# workspace back and forth (with/without active container)
+workspace_auto_back_and_forth yes
+bindsym $mod+b		    workspace back_and_forth
+bindsym $mod+Shift+b    move container to workspace back_and_forth; workspace back_and_forth
+
+# navigate workspaces
+bindsym $mod+Ctrl+Right workspace next
+bindsym $mod+Ctrl+Left  workspace prev
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set		$ws1  "1"
+set		$ws2  "2"
+set		$ws3  "3"
+set		$ws4  "4"
+set		$ws5  "5"
+set		$ws6  "6"
+set		$ws7  "7"
+set		$ws8  "8"
+set		$ws9  "9"
+set		$ws10 "10"
+set		$ws_desktop "0: desktop"
+
+# switch to workspace
+bindsym $mod+1		 workspace                   number $ws1
+bindsym $mod+2		 workspace                   number $ws2
+bindsym $mod+3		 workspace                   number $ws3
+bindsym $mod+4		 workspace                   number $ws4
+bindsym $mod+5		 workspace                   number $ws5
+bindsym $mod+6		 workspace                   number $ws6
+bindsym $mod+7		 workspace                   number $ws7
+bindsym $mod+8		 workspace                   number $ws8
+bindsym $mod+9		 workspace                   number $ws9
+bindsym $mod+0		 workspace                   number $ws10
+bindsym $mod+d		 workspace					        $ws_desktop
+
+# move focused container to workspace
+bindsym $mod+Ctrl+1  move container to workspace number $ws1
+bindsym $mod+Ctrl+2  move container to workspace number $ws2
+bindsym $mod+Ctrl+3  move container to workspace number $ws3
+bindsym $mod+Ctrl+4  move container to workspace number $ws4
+bindsym $mod+Ctrl+5  move container to workspace number $ws5
+bindsym $mod+Ctrl+6  move container to workspace number $ws6
+bindsym $mod+Ctrl+7  move container to workspace number $ws7
+bindsym $mod+Ctrl+8  move container to workspace number $ws8
+bindsym $mod+Ctrl+9  move container to workspace number $ws9
+bindsym $mod+Ctrl+0  move container to workspace number $ws10
+
+# move to workspace with focused container
+bindsym $mod+Shift+1 move container to workspace number $ws1;  workspace $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2;  workspace $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3;  workspace $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4;  workspace $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5;  workspace $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6;  workspace $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7;  workspace $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8;  workspace $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9;  workspace $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10; workspace $ws10
+
+bindsym $mod+Ctrl+Shift+Right move container to workspace next; workspace next
+bindsym $mod+Ctrl+Shift+Left  move container to workspace prev; workspace prev
+
+# switch to workspace with urgent window automatically
+for_window [urgent=latest] focus
+
+# ------------
+# # i3 control
+# ------------
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# ---------------------------------------
+# # shutdown / restart / lock /etc.. mode
+# ---------------------------------------
+
+bindsym $mod+Mod1+0 mode "$mode_system"
+set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (S)hutdown, (r)eboot, (R)eboot to firmware settings
+mode "$mode_system" {
+    bindsym l		exec --no-startup-id i3exit lock,           		    mode "default"
+    bindsym s		exec --no-startup-id i3exit suspend,           	        mode "default"
+    bindsym u		exec --no-startup-id i3exit switch_user,                mode "default"
+    bindsym e		exec --no-startup-id i3exit logout,           		    mode "default"
+    bindsym h		exec --no-startup-id i3exit hibernate,           	    mode "default"
+    bindsym r		exec --no-startup-id i3exit reboot,           		    mode "default"
+    bindsym Shift+s exec --no-startup-id i3exit shutdown,           	    mode "default"
+	bindsym Shift+r exec --no-startup-id systemctl reboot --firmware-setup, mode "default"
+    bindsym Return											                mode "default"
+    bindsym Escape											                mode "default"
+}
+# lock screen
+bindsym $mod+Mod1+9 exec --no-startup-id blurlock
+
+# --------------------
+# # mouse key bindings
+# --------------------
+
+# mod+mid-click on the window (except titlebar) kills window
+bindsym --whole-window --exclude-titlebar $mod+button2 kill
+# mod+r-click   on the window                   toggles floating mode
+bindsym --whole-window --exclude-titlebar $mod+button3 floating toggle
+
+# ------------
+# # ipc-socket
+# # to allow communication with i3 from other programs
+# ----------------------------------------------------
+# 
+# ipc-socket /home/$USER/.i3/i3-ipc.sock
+# made i3 crash btw
+# By default, an IPC socket will be created in
+#  $XDG_RUNTIME_DIR/i3/ipc-socket.%p if the directory is available,
+#  falling back to /tmp/i3-%u.XXXXXX/ipc-socket.%p,
+#  where %u is your UNIX username,
+#  %p is the PID of i3 and XXXXXX is a string of random characters
+#  from the portable filename character set (see mkdtemp(3)).
+
+# ---------
+# # i3-gaps
+# # copied/modified from manjaro
+# ------------------------------
+
+# Set inner/outer gaps
+gaps inner 14
+gaps outer -10
+
+# Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
+# gaps inner|outer current|all set|plus|minus <px>
+# gaps inner all set 10
+# gaps outer all plus 5
+
+# Smart gaps (gaps used if only more than one container on the workspace)
+smart_gaps on
+# smart_gaps inverse_outer
+
+# Smart borders (draw borders around container only if it is not the only container on this workspace)
+# on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
+# smart_borders on
+
+# Press $mod+Shift+g to enter the gap mode.
+# Choose o or i for modifying outer/inner gaps.
+# Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace).
+# If you also press Shift with these keys, the change will be global for all workspaces.
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+        bindsym o			mode "$mode_gaps_outer"
+        bindsym i			mode "$mode_gaps_inner"
+        bindsym Return		mode "default"
+        bindsym Escape		mode "default"
+}
+mode "$mode_gaps_inner" {
+        bindsym plus		gaps inner current plus 5
+        bindsym minus		gaps inner current minus 5
+        bindsym 0			gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return		mode "default"
+        bindsym Escape		mode "default"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus		gaps outer current plus 5
+        bindsym minus		gaps outer current minus 5
+        bindsym 0			gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return		mode "default"
+        bindsym Escape		mode "default"
+}
+
+# -----------
+# # i3 colors
+# -----------
+
+# Color palette used for the terminal ( ~/.Xresources file )
+# Colors are gathered based on the documentation:
+# https://i3wm.org/docs/userguide.html#xresources
+# Change the variable name at the place you want to match the color
+# of your terminal like this:
+# [example]
+# If you want your bar to have the same background color as your
+# terminal background change the line 362 from:
+# background #14191D
+# to:
+# background $term_background
+# Same logic applied to everything else.
+set_from_resource $term_background background
+set_from_resource $term_foreground foreground
+set_from_resource $term_color0     color0
+set_from_resource $term_color1     color1
+set_from_resource $term_color2     color2
+set_from_resource $term_color3     color3
+set_from_resource $term_color4     color4
+set_from_resource $term_color5     color5
+set_from_resource $term_color6     color6
+set_from_resource $term_color7     color7
+set_from_resource $term_color8     color8
+set_from_resource $term_color9     color9
+set_from_resource $term_color10    color10
+set_from_resource $term_color11    color11
+set_from_resource $term_color12    color12
+set_from_resource $term_color13    color13
+set_from_resource $term_color14    color14
+set_from_resource $term_color15    color15
+
+# Color shemes for windows - i3colors
+##### change these variables instead
+#   $i3c-null         #000000
+#        focused
+set $i3c-f-border     #99523d64
+set $i3c-f-bg         #99523d64
+set $i3c-f-text       #ffffff
+set $i3c-f-indicator  #a8a3c1
+#        unfocused
+set $i3c-uf-border    #4D363636
+set $i3c-uf-bg        #4D363636
+set $i3c-uf-text      #969696
+set $i3c-uf-indicator #4D363636
+#        focused_inactive
+set $i3c-fi-border    #969696
+set $i3c-fi-bg        #969696
+set $i3c-fi-text      #969696
+set $i3c-fi-indicator #4D363636
+#        urgent
+set $i3c-u-border     #ff0000
+set $i3c-u-bg         #ff0000
+set $i3c-u-text       #ffffff
+set $i3c-u-indicator  #ff0000
+#        placeholder
+set $i3c-p-border     #000000
+set $i3c-p-bg         #0c0c0c
+set $i3c-p-text       #ffffff
+set $i3c-p-indicator  #000000
+#
+set $i3c-bg           #888888
+#####
+#																		(a line which shows where the next window will be placed)
+#                       border          background      text            indicator   
+client.focused          $i3c-f-border   $i3c-f-bg       $i3c-f-text     $i3c-f-indicator
+client.unfocused        $i3c-uf-border  $i3c-uf-bg      $i3c-uf-text    $i3c-uf-indicator
+client.focused_inactive $i3c-fi-border  $i3c-fi-bg      $i3c-fi-text    $i3c-fi-indicator
+client.urgent           $i3c-u-border   $i3c-u-bg       $i3c-u-text     $i3c-u-indicator
+client.placeholder      $i3c-p-border   $i3c-p-bg       $i3c-p-text     $i3c-p-indicator
+client.background       $i3c-bg
+
+# ---------
+# # polybar
+# ---------
+
+bindsym $mod+m exec --no-startup-id polybar-msg cmd toggle
+
+## -------
+## # i3bar
+## -------
+## deprecated in favor of polybar (look for `autostart applications`)
+#
+## fyi: using multiple `bar { }` will put multiple bars on the screen.
+##  so not just for multiple displays.
+#
+## i3bar colors
+###set $i3bc-bg         #222D31
+#set $i3bc-bg         #12382a72
+#set $i3bc-statusline #F9FAF9
+#set $i3bc-separator  #454947
+##              focused workspace
+#set $i3bc-fw-border  #F9FAF9
+#set $i3bc-fw-bg      #16a085
+#set $i3bc-fw-text    #292F34
+##              active workspace
+#set $i3bc-aw-border  #595B5B
+#set $i3bc-aw-bg      #353836
+#set $i3bc-aw-text    #FDF6E3
+##              inactive workspace
+#set $i3bc-iw-border  #595B5B
+#set $i3bc-iw-bg      #222D31
+#set $i3bc-iw-text    #EEE8D5
+##              binding mode
+#set $i3bc-bm-border  #16a085
+#set $i3bc-bm-bg      #2C2C2C
+#set $i3bc-bm-text    #F9FAF9
+##              urgent workspace
+#set $i3bc-uw-border  #16a085
+#set $i3bc-uw-bg      #FDF6E3
+#set $i3bc-uw-text    #E5201D
+#
+#bar {
+#		i3bar_command i3bar -t
+#		status_command i3status
+#		position bottom
+#		id bar-0
+#
+##		deactivate ws scrolling
+#		bindsym button4 nop
+#		bindsym button5 nop
+#
+#		font pango:JetBrainsMono Nerd Font Regular 11
+#		separator_symbol "/"
+#        strip_workspace_numbers yes
+##		tray_output none
+#
+##				top right bottom left
+#		padding 6px 0px   6px    0px
+#
+#		colors {
+#	        background         $i3bc-bg
+#	        statusline         $i3bc-statusline
+#	        separator          $i3bc-separator
+##	                           border          background  text
+#	        focused_workspace  $i3bc-fw-border $i3bc-fw-bg $i3bc-fw-text
+#	        active_workspace   $i3bc-aw-border $i3bc-aw-bg $i3bc-ac_text
+#	        inactive_workspace $i3bc-iw-border $i3bc-iw-bg $i3bc-iw-text
+#	        binding_mode       $i3bc-bm-border $i3bc-bm-bg $i3bc-bm-text
+#	        urgent_workspace   $i3bc-uw-border $i3bc-uw-bg $i3bc-uw-text
+#		}
+#}
+#
+## hide/ungide i3status bar
+#bindsym $mod+m bar mode toggle
+
+# # --------------------------
+# # # mark input focus binding
+# # --------------------------
+# 
+# bindsym $mod+Shift+m exec i3-input -F 'mark %s'               -P 'Mark: '
+# bindsym $mod+g exec i3-input -F '[con_mark="%s"] focus' -P 'Goto: '
+# bindsym $mod+u exec i3-input -F 'unmark %s'             -P 'Unmark: '
+# bindsym $mod+Shift+u unmark
+
+# -----------
+# # todo mode
+# -----------
+
+set $mode_todo_meta todo: meta: (c)reate, (C)reate and show, (r)emove, (R)eport, (s)how, (h)ide, restart con(k)y
+set $mode_todo todo: (a)dd, (d)o, (D)elete (u)pdate, (c)opy, (p)rio, de(P)rio or (m)ove entry, (s)howall, (r)evert, (t)odo meta
+bindsym $mod+t mode "$mode_todo"
+mode "$mode_todo" {
+    bindsym a	    exec --no-startup-id ci3-todotxt-manager.sh add,     mode "default"
+    bindsym d		exec --no-startup-id ci3-todotxt-manager.sh do,      mode "default"
+    bindsym c		exec --no-startup-id ci3-todotxt-manager.sh copy,    mode "default"
+    bindsym Shift+d exec --no-startup-id ci3-todotxt-manager.sh delete,  mode "default"
+    bindsym u		exec --no-startup-id ci3-todotxt-manager.sh update,  mode "default"
+	bindsym p		exec --no-startup-id ci3-todotxt-manager.sh prio,    mode "default"
+    bindsym Shift+P exec --no-startup-id ci3-todotxt-manager.sh deprio,  mode "default"
+    bindsym m		exec --no-startup-id ci3-todotxt-manager.sh move,    mode "default"
+    bindsym s		exec --no-startup-id ci3-todotxt-manager.sh showall, mode "default"
+    bindsym r		exec --no-startup-id ci3-todotxt-manager.sh revert,  mode "default"
+	bindsym t														     mode "$mode_todo_meta"
+    bindsym Return													     mode "default"
+    bindsym Escape													     mode "default"
+}
+
+mode "$mode_todo_meta" {
+	bindsym c       exec --no-startup-id ci3-todotxt-manager.sh create,			   mode "default"
+	bindsym Shift+c exec --no-startup-id ci3-todotxt-manager.sh Create,			   mode "default"
+	bindsym r       exec --no-startup-id ci3-todotxt-manager.sh remove,			   mode "default"
+	bindsym Shift+r exec --no-startup-id ci3-todotxt-manager.sh report,			   mode "default"
+	bindsym s       exec --no-startup-id ci3-todotxt-manager.sh show,			   mode "default"
+	bindsym h       exec --no-startup-id ci3-todotxt-manager.sh hide,			   mode "default"
+	bindsym k	    exec --no-startup-id $HOME/.config/conky/launch.sh todo.rc -f, mode "default"
+	bindsym Retrun																   mode "default"
+	bindsym Escape																   mode "default"
+}
+
+# ------------
+# # files mode
+# ------------
+
+set $mode_credentials credentials: (v)iew, (c)reate, (d)elete, (m)odify
+set $mode_quick_dir quick dir: (d)ownloads, (D)ocuments, (p)rojects, (s)cripts, (t)erminal
+set $mode_files files: (q)uick open, (c)redentials
+bindsym $mod+Shift+f mode "$mode_files"
+mode "$mode_files" {
+	bindsym q      mode "$mode_quick_dir"
+	bindsym c      mode "$mode_credentials"
+	bindsym c      mode "default"
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+
+mode "$mode_quick_dir" {
+	bindsym d      exec --no-startup-id i3-sensible-terminal -e lf "$HOME/Bedroom/Downloads", mode "default"
+	bindsym D      exec --no-startup-id i3-sensible-terminal -e lf "$HOME/Bedroom/Documents", mode "default"
+	bindsym p      exec --no-startup-id i3-sensible-terminal -e lf "$HOME/Studio/Projects",   mode "default"
+	bindsym s      exec --no-startup-id i3-sensible-terminal -e lf "$HOME/Studio/Scripts",    mode "default"
+	bindsym t      exec --no-startup-id i3-sensible-terminal -e lf "$HOME/Studio/Terminal",   mode "default"
+	bindsym Return  														   mode "default"
+	bindsym	Escape															   mode "default"
+}
+
+mode "$mode_credentials" {
+	bindsym v		exec --no-startup-id ci3-credentials-manager.sh view,   mode "default"
+	bindsym c		exec --no-startup-id ci3-credentials-manager.sh create, mode "default"
+	bindsym d		exec --no-startup-id ci3-credentials-manager.sh delete, mode "default"
+	bindsym m		exec --no-startup-id ci3-credentials-manager.sh modify, mode "default"
+	bindsym Return															mode "default"
+	bindsym Escape															mode "default"
+}
+
+# ------------
+# # cheat mode
+# ------------
+
+set $mode_cheat cheat: (v)iew, (e)dit, (c)reate, (d)elete, chea(t) meta
+set $mode_cheat_meta cheat: meta: (c)reate, (r)emove
+bindsym $mod+c mode "$mode_cheat"
+mode "$mode_cheat" {
+	bindsym v      exec --no-startup-id ci3-cheat-manager.sh view,   mode "default"
+	bindsym e      exec --no-startup-id ci3-cheat-manager.sh edit,   mode "default"
+	bindsym c      exec --no-startup-id ci3-cheat-manager.sh create, mode "default"
+	bindsym d      exec --no-startup-id ci3-cheat-manager.sh delete, mode "default"
+	bindsym t                                                        mode "$mode_cheat_meta"
+	bindsym Return                                                   mode "default"
+	bindsym Escape                                                   mode "default"
+}
+
+mode "$mode_cheat_meta" {
+	bindsym c      exec --no-startup-id ci3-cheat-manager.sh create-path, mode "default"
+	bindsym r      exec --no-startup-id ci3-cheat-manager.sh remove-path, mode "default"
+	bindsym Retrun														  mode "default"
+	bindsym Escape														  mode "default"
+}
+
+# ---------
+# # manuals
+# ---------
+set $mode_man manuals: (v)iew, re(g)enerate list
+bindsym $mod+i mode "$mode_man"
+mode "$mode_man" {
+	bindsym v      exec --no-startup-id ci3-manuals-manager.sh view,     mode "default"
+	bindsym g      exec --no-startup-id ci3-manuals-manager.sh gen-list, mode "default"
+	bindsym Return														 mode "default"
+	bindsym Escape													     mode "default"
+}
+
+# ---------------
+# # markdown mode
+# ---------------
+set $mode_markdown markdown: (v)iew
+bindsym $mod+Ctrl+m mode "$mode_markdown"
+mode "$mode_markdown" {
+	bindsym v      exec --no-startup-id ci3-markdown-manager.sh view, mode "default"
+	bindsym Return													  mode "default"
+	bindsym Escape													  mode "default"
+}

@@ -1,0 +1,8 @@
+indent-width = 4
+
+[format]
+indent-style = "tab"
+
+[lint.isort]
+length-sort = true
+lines-between-types = 1

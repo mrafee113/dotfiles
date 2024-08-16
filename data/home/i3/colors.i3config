@@ -1,0 +1,76 @@
+# i3 config file (v4)
+
+# -----------
+# # i3 colors
+# -----------
+
+# Color palette used for the terminal ( ~/.Xresources file )
+# Colors are gathered based on the documentation:
+# https://i3wm.org/docs/userguide.html#xresources
+# Change the variable name at the place you want to match the color
+# of your terminal like this:
+# [example]
+# If you want your bar to have the same background color as your
+# terminal background change the line 362 from:
+# background #14191D
+# to:
+# background $term_background
+# Same logic applied to everything else.
+set_from_resource $term_background background
+set_from_resource $term_foreground foreground
+set_from_resource $term_color0     color0
+set_from_resource $term_color1     color1
+set_from_resource $term_color2     color2
+set_from_resource $term_color3     color3
+set_from_resource $term_color4     color4
+set_from_resource $term_color5     color5
+set_from_resource $term_color6     color6
+set_from_resource $term_color7     color7
+set_from_resource $term_color8     color8
+set_from_resource $term_color9     color9
+set_from_resource $term_color10    color10
+set_from_resource $term_color11    color11
+set_from_resource $term_color12    color12
+set_from_resource $term_color13    color13
+set_from_resource $term_color14    color14
+set_from_resource $term_color15    color15
+
+# Color shemes for windows - i3colors
+##### change these variables instead
+#   $i3c-null         #000000
+#        focused
+set $i3c-f-border     #395a6b
+set $i3c-f-bg         #395a6b
+set $i3c-f-text       #ffffff
+set $i3c-f-indicator  #a8a3c1
+#        unfocused
+set $i3c-uf-border    #180e1e
+set $i3c-uf-bg        #180e1e
+set $i3c-uf-text      #969696
+set $i3c-uf-indicator #4D363636
+#        focused_inactive
+set $i3c-fi-border    #180e1e
+set $i3c-fi-bg        #180e1e
+set $i3c-fi-text      #969696
+set $i3c-fi-indicator #4D363636
+#        urgent
+set $i3c-u-border     #ff0000
+set $i3c-u-bg         #ff0000
+set $i3c-u-text       #ffffff
+set $i3c-u-indicator  #ff0000
+#        placeholder
+set $i3c-p-border     #000000
+set $i3c-p-bg         #0c0c0c
+set $i3c-p-text       #ffffff
+set $i3c-p-indicator  #000000
+#
+set $i3c-bg           #888888
+#####
+#																		(a line which shows where the next window will be placed)
+#                       border          background      text            indicator
+client.focused          $i3c-f-border   $i3c-f-bg       $i3c-f-text     $i3c-f-indicator
+client.unfocused        $i3c-uf-border  $i3c-uf-bg      $i3c-uf-text    $i3c-uf-indicator
+client.focused_inactive $i3c-fi-border  $i3c-fi-bg      $i3c-fi-text    $i3c-fi-indicator
+client.urgent           $i3c-u-border   $i3c-u-bg       $i3c-u-text     $i3c-u-indicator
+client.placeholder      $i3c-p-border   $i3c-p-bg       $i3c-p-text     $i3c-p-indicator
+client.background       $i3c-bg

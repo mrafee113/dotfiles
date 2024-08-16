@@ -1,0 +1,601 @@
+# -------------
+# # shell stuff
+# -------------
+
+# interpreter for shell commands
+# set shell sh
+set shell zsh
+
+# set '-eu' options for shell commands
+# These options are used to have safer shell commands. Option '-e' is used to
+# exit on error and option '-u' is used to give error for unset variables.
+# Option '-f' disables pathname expansion which can be useful when $f, $fs, and
+# $fx variables contain names with '*' or '?' characters. However, this option
+# is used selectively within individual commands as it can be limiting at
+# times.
+# set shellopts '-eu' # shell sh
+set shellopts '-euy' # shell zsh
+
+# set internal field separator (IFS) to "\n" for shell commands
+# This is useful to automatically split file names in $fs and $fx properly
+# since default file separator used in these variables (i.e. 'filesep' option)
+# is newline. You need to consider the values of these options and create your
+# commands accordingly.
+set ifs "\n"
+
+set icons true
+
+source ~/.config/lf/test.conf
+
+# ----------
+# # mappings
+# ----------
+
+## remove default mappings
+
+map f
+map y
+map p
+map d
+
+## custom mappings
+
+map <enter> shell
+
+# show the result of execution of previous commands
+map ` !true
+
+# -------
+# # utils
+# -------
+
+# utility to run a command with spaces escaped
+cmd run-escaped %{{
+	[ $# -eq 0 ] && echo 'error' && false
+	IFS=" "
+	cmd="$1"
+	shift
+	"$cmd" "$*"
+}}
+map \\ push :run-escaped<space>
+
+# this eval makes it possible to use env vars in settings
+# eval set previewer "$XDG_CONFIG_HOME/lf/previewer"
+# eval set cleaner "$XDG_CONFIG_HOME/lf/cleaner"
+cmd eval &{{
+    cmd="send $id"
+    for arg; do
+        cmd="$cmd $(eval "printf '%q' \"$arg\"")"
+    done
+    lf -remote "$cmd"
+}}
+
+cmd adjust-columns ${{
+    ratios=
+	[ $lf_width -le 160 -a $lf_preview = true ]  && ratios="1:1:3"   || true
+	[ $lf_width -le 160 -a $lf_preview = false ] && ratios="1:3"     || true
+	[ $lf_width -le 80  -a $lf_preview = true ]  && ratios="1:2"     || true
+	[ $lf_width -le 80  -a $lf_preview = false ] && ratios="1:2"     || true
+	[ $lf_width -gt 160 -a $lf_preview = true ]  && ratios="1:1:3:5" || true
+	[ $lf_width -gt 160 -a $lf_preview = false ] && ratios="1:1:3"   || true
+    lf -remote "send $id set ratios \"$ratios\""
+}}
+
+# realod the lfrc config file
+cmd reloadc ${{
+	lf -remote "send $id source /home/francis/.config/lf/lfrc"
+}}
+map C reloadc
+map <c-c> :reload
+map <a-c> ${{ clear ; }}
+
+map <a-m> ${{ clear; grep -E '^map [^ ]+ ' "$HOME"/.config/lf/lfrc | sort | less }}
+
+# -------------------
+# # special functions
+# -------------------
+
+cmd paste-large &i3-msg "exec --no-startup-id i3-sensible-terminal --title lf-paste-window -e zsh -i -c 'lfpaste $id \"$PWD\" && printf \"Finished. Press any key to continue.\" && read -k'"
+cmd paste %{{
+	file=~/.local/share/lf/files
+	[ ! -f "$file" ] && lf -remote "send $lfid :echoerr no files were selected" && false
+
+	mode="$(sed -n '1p' "$file")"
+	args="$(sed -n '2,$p' "$file" | while read line; do echo -n "\"$line\" "; done)"
+	
+	case "$mode" in
+        copy) cmd="cp -av -- $args .";;
+        move) cmd="mv -v -- $args .";;
+    esac
+	
+	eval "$cmd"
+	if [ $? -eq 0 ]; then
+		rm "$file"
+	    lf -remote "send clear"
+	fi
+	return 0
+}}
+cmd paste-dup ${{
+	file=~/.local/share/lf/files
+	[ ! -f "$file" ] && lf -remote "send $lfid :echoerr no files were selected" && false
+
+	mode="$(sed -n '1p' "$file")"
+	if [ $mode = move ]; then
+		lf -remote "send $id :echoerr no duplicate for move"
+		rm "$file"
+		exit 0
+	fi
+	args="$(sed -n '2,$p' "$file")"
+	while read line; do
+		src="\"$line\""
+		while [ -e "$line" ]; do line="${line}.dup"; done
+		line="\"$line\""
+		eval "cp -av -- $src $line"
+		[ $? -ne 0 ] && exit 0
+	done < <(echo "$args")
+
+	rm "$file"
+	lf -remote "send clear"
+	return 0
+}}
+map pp :paste
+map pl :paste-large
+map pd :paste-dup
+
+cmd del &{{
+	tmpf="$(mktemp)"
+	setopt -f
+	rm -rf $fx 2>"$tmpf" || true
+	setopt +f
+	errs="$(cat "$tmpf")"
+	rm -f "$tmpf"
+	if [ -n "$errs" ]; then
+		lf -remote "send $id $echo \"delete: $errs\" | less"
+	else
+		lf -remote "send $id :echo deleted $1"
+	fi
+}}
+cmd delete-shell ${{
+	printf "$fx\n"
+    printf "delete?[Y/n]\n"
+    read ans
+	[ "$ans" = "Y" ] && lf -remote "send $id :del \"$1\"" || true
+}}
+cmd delete-shell-pipe %{{
+	printf " delete?[Y/n] $1 "
+	read ans
+	[ "$ans" = "Y" ] && lf -remote "send $id :del \"$1\"" || echo
+}}
+cmd delete-selection %{{
+	fstr=
+	for file in $fx; do [[ "$file" == "${PWD}"/* ]] && fstr+="./${file#$PWD/}\n" || fstr+="hh${file}\n" ; done
+	fstr="$(echo "$fstr" | sed -E 's|\ |\\\ |g' | tr '\n' ' ' | sed -E -e 's|^[[:space:]]+||g' -e 's|[[:space:]]+$||g')"
+  	if [ "$(echo "$fstr" | wc -c)" -le 80 ]; then
+  		lf -remote "send $id :delete-shell-pipe \"$fstr\""
+  	else
+  		lf -remote "send $id :delete-shell \"$fstr\""
+  	fi
+}}
+map <delete> :delete-selection
+map dd :delete-selection
+map dD :delete
+
+# set columns
+cmd on-redraw :{{
+	adjust-columns
+}}
+
+# define a custom 'open' command
+# This command is called when current file is not a directory. You may want to
+# use either file extensions and/or mime types here. Below uses an editor for
+# text files and a file opener for the rest.
+# custom open
+cmd openf &{{	
+	# arg can be [filepath] or [--fx]
+	[ $# -eq 0 -o $# -ge 2 ] && exit 0
+	case "$1" in
+		--fx) args="$fx";;
+		*)    args="$@" ;;
+	esac
+	
+	for file in $args; do
+		type="$(file --mime-type -Lb "$file")"
+		
+		# credential files
+		if [[ "$file" == "$CREDENTIALS_DIR"/* && "$file" == *.enc && "$type" = application/octet-stream ]]; then
+			file="$(realpath "$file")"
+			lf -remote "send $id \$zsh -i -c 'mod-cred \"$file\"'"
+			continue
+		fi
+
+		# Mangas
+		MANGAS_DIR="$DOCUMENTS_DIR/Mangas"
+		if [[ "$file" == *.(cbz|cbr|cb7|cbt) || "$file" == "$MANGAS_DIR"/*.pdf ]]; then
+			echo "here 6 $file $type" >> /tmp/lf.log
+			file="$(realpath "$file")"
+			i3-msg "exec --no-startup-id mcomix \"$file\""
+			continue
+		fi
+
+ 		case "$type" in
+ 			text/* | inode/x-empty | application/json | application/octet-stream)
+				echo "here2 $file type" >> /tmp/lf.log
+				lf -remote "send $id \$$EDITOR \"$file\""
+				;;
+ 			*)
+				mimeopen -n "$file" >/dev/null 2>&1 &
+				[ $? -eq 1 ] && lf -remote "send $id :echoerr openf:mimeopen: error" || true
+				;;  # ditched the $OPENER cuz of -n
+ 		esac
+	done
+}}
+cmd open &{{
+	lf -remote "send $id :openf --fx"
+}}
+
+#
+cmd on-cd :{{
+	:setprompt
+}}
+
+# --------------
+# # local config 
+# --------------
+
+# in home, this one sorts dotfiles after
+setlocal ~ sortby ext
+
+# ----------
+# # movement
+# ----------
+
+cmd bookmark-jump %{{
+	[ "$(ls -1A "$LF_BOOKMARK_PATH" | wc -w)" -eq 0 ] && lf -remote "send $id :echoerr no bookmarks available" && false
+    res="$LF_BOOKMARK_PATH/$(ls -1A $LF_BOOKMARK_PATH | fzf)"
+    lf -remote "send $id cd \"$res\""
+}}
+cmd bookmark-create %{{
+    [ $# -le 1 -o $# -ge 3 ] && lf -remote "send $id :echoerr error" && false
+	[ ! -e "$1" ] && lf -remote "send $id :echoerr destination doesn't exist" && false
+	[ -e "${LF_BOOKMARK_PATH}/$2" ] && lf -remote "send $id :echoerr bookmark already exists" && false
+    ln -s "$(realpath "$1")" "${LF_BOOKMARK_PATH}/$2"
+	echo "bookmark '$2' created"
+}}
+cmd bookmark-delete %{{
+	[ "$(ls -1A "$LF_BOOKMARK_PATH" | wc -w)" -eq 0 ] && lf -remote "send $id :echoerr no bookmarks available" && false
+	res="$(ls -1A $LF_BOOKMARK_PATH | fzf)"
+    file="$LF_BOOKMARK_PATH/$res"
+	[[ "$file" == */ ]] && file="${file%/}"
+	rm "$file"
+	echo "deleted $res"
+}}
+map bc push :bookmark-create<space> 
+map bj :bookmark-jump
+map bd :bookmark-delete
+
+# move through parent directory
+cmd move-parent &{{
+    dironly="setlocal '$(dirname "$PWD")' dironly"
+    lf -remote "send $id :updir; $dironly true; $1; $dironly false; open"
+}}
+
+map <s-down> move-parent down
+map J move-parent down
+map <s-up> move-parent up
+map K move-parent up
+
+# ---------
+# # preview
+# ---------
+
+# installed these optional packages
+#	atool bat git-delta glow imagemagick jq lynx poppler transmission-cli ueberzug ffmpegthumbnailer
+# https://www.nikitaivanov.com/man1/ctpv
+set previewer ctpv
+set cleaner ctpvclear
+&ctpv -s $id
+&ctpvquit $id
+
+# toggle preview
+cmd toggle_preview %{{
+	if [ $lf_preview = true ]; then value=false; else value=true; fi
+    lf -remote "send $id :set preview $value"
+    lf -remote "send $id :on-redraw"
+}}
+map zp toggle_preview
+
+# Use the `dim` attribute instead of underline for the cursor in the preview pane
+set cursorpreviewfmt "\033[7;2m"
+
+# -----------------------
+# # file/dir manipulation
+# -----------------------
+
+cmd open-terminal %{{
+	i3-msg "exec --no-startup-id i3-sensible-terminal --working-directory \"$PWD\""
+}}
+map W open-terminal
+
+cmd mkd %{{
+    IFS=" "
+    mkdir -p -- "$*"
+    lf -remote "send $id select \"$*\""
+}}
+cmd mkf %{{
+    IFS=" "
+    touch -a -- "$*"
+    lf -remote "send $id select \"$*\""
+}}
+cmd mks %{{
+	[ ! -n "$f" ] && lf -remote "send $id :echoerr nothing selected" && exit 0
+	[ $# -eq 0 -o $# -ge 2 ] && lf -remote "send $id :echoerr args error" && exit 0
+	dst="$1"
+	[[ "$dst" == \~/* ]] && dst="${HOME}${dst#\~}"
+	[ -e "$dst" ] && lf -remote "send $id :echoerr already exists" && exit 0
+	[ ! -r "$f" ] && lf -remote "send $id :echoerr no read access" && exit 0
+	IFS=" "
+	ln -s "$f" "$dst"
+	lf -remote "send $id select \"$dst\""
+}}
+cmd mkt %{{
+	file="$(eval "mktemp $@")"
+	lf -remote "send $id select \"$file\""
+}}
+map ad push :mkd<space>
+map af push :mkf<space>
+map as push :mks<space>
+map at push :mkt<space>
+
+# define a custom 'rename' command without prompt for overwrite
+cmd srename %{{
+	[ $# -eq 0 -o $# -ge 2 ] && echo 'args error' && false
+	[ -e "$1" ] && echo 'already exists' && false
+	mv "$f" "$1"
+}}
+cmd brename ${{
+    clear
+    qmv -d $fx
+    lf -remote "send $id :unselect"
+}}
+cmd rename %{{
+	if [ "$(echo "$fx" | wc -l)" -eq 1 ]; then
+		file="$(basename "$fx")"
+		lf -remote "send $id push :srename<space>$(echo "$file" | sed 's|[[:space:]]|\\<space>|g')"
+	else
+		lf -remote "send $id :brename"
+	fi
+}}
+map r :rename
+
+# make folder with selected files
+cmd newfolder %{{
+	[ $# -eq 0 -o $# -ge 2 ] && lf -remote "send $id :echoerr args..." && false
+	[ -e "$1" ] && lf -remote "send $id :echoerr already exists" && false
+    setopt -f
+    mkdir -- "$1"
+    mv -- $fx "$1"
+	setopt +f
+	lf -remote "send $id :select \"$1\""
+	echo "created $1"
+}}
+map <c-n> push :newfolder<space>
+
+# execute current file
+cmd execfile %{{
+	[ $# -eq 0 -o $# -ge 2 ] && lf -remote "send $id echoerr 'args error'" && exit 0
+	[ -d "$f" ] && lf -remote "send $id echoerr 'not a file'" && exit 0
+	[ ! -x "$f" ] && lf -remote "send $id echoerr 'not executable'" && exit 0
+	cmd=
+	[ "$1" = "shell" ]		&& cmd='%' || true
+	[ "$1" = "shell-wait" ] && cmd='!' || true
+	[ -z "$cmd" ] && false
+	lf -remote "send $id ${cmd}\"$f\""
+}}
+map x :execfile shell
+map X :execfile shell-wait
+
+# compression and archiving
+cmd archive-extract ${{
+	[[ ! -n "$f" || ! -f "$f" ]] && lf -remote "send $id :echoerr not a file" && exit 0
+	[[ ! "$f" == *.(tar.gz|tgz|tar.bz|tbz|tar.bz2|tbz2|tar.Z|tZ|tar.z|tz|tar.lzo|tzo|tar.lz|tlz|tar.xz|txz|tar.7z|t7z|tar|zip|jar|war|rar|lha|lzh|7z|alz|ace|a|arj|arc|rpm|deb|cap|gz|bz|bz2|Z|z|lzma|lzo|lz|xz|rz|lrz|7z|cpio) ]] \
+		&& lf -remote "send $id :echoerr not compressed" && exit 0
+	
+	case $# in
+		0) atool -x "$f" ;;
+		1) atool --extract-to="${1%/}/$(basename "$f").d" "$f" ;;
+		*) lf -remote "send $id :echoerr args err" && exit 0 ;;
+	esac
+}}
+cmd archive-view ${{
+	[[ ! -n "$f" || ! -f "$f" ]] && lf -remote "send $id :echoerr not a file" && exit 0
+	[[ ! "$f" == *.(tar.gz|tgz|tar.bz|tbz|tar.bz2|tbz2|tar.Z|tZ|tar.z|tz|tar.lzo|tzo|tar.lz|tlz|tar.xz|txz|tar.7z|t7z|tar|zip|jar|war|rar|lha|lzh|7z|alz|ace|a|arj|arc|rpm|deb|cap|gz|bz|bz2|Z|z|lzma|lzo|lz|xz|rz|lrz|7z|cpio) ]] \
+		&& lf -remote "send $id :echoerr not compressed" && exit 0
+	clear
+	atool --list "$f" | less
+}}
+cmd archive-compress ${{
+	[ ! -n "$fx" ] && lf -remote "send $id :echoerr args err" && exit 0
+	[ $# -eq 0 -o $# -ge 2 ] && lf -remote "send $id :echoerr no archive specified" && exit 0
+	[[ ! "$1" == *.(tar.gz|tgz|tar.bz|tbz|tar.bz2|tbz2|tar.Z|tZ|tar.z|tz|tar.lzo|tzo|tar.lz|tlz|tar.xz|txz|tar.7z|t7z|tar|zip|jar|war|rar|lha|lzh|7z|alz|ace|a|arj|arc|rpm|deb|cap|gz|bz|bz2|Z|z|lzma|lzo|lz|xz|rz|lrz|7z|cpio) ]] \
+		&& lf -remote "send $id :echoerr no compression specified" && exit 0
+	args=
+	for file in $fx; do
+		[ ! -r "$file" ] && lf -remote "send $id :echoerr read perm denied: $file" && exit 0
+		args+="\"$(realpath -s --relative-to="$PWD" "$file")\" "
+	done
+	eval "atool -a $1 $args"
+	[ $? -eq 0 ] && lf -remote "send $id :unselect; select \"$1\""
+	exit 0
+}}
+map Ee :archive-extract
+map EE :push :archive-extract<space>
+map Ev :archive-view
+map Ec :push :archive-compress<space>
+
+cmd edit-file ${{
+	[ ! -n "$f" -o -d "$f" ] && lf -remote "send $id :echoerr not a file" && exit 0
+	"$EDITOR" "$f"
+}}
+map e :edit-file
+
+cmd page-file ${{
+	[ ! -n "$f" -o -d "$f" ] && lf -remote "send $id :echoerr not a file" && exit 0
+	LESSOPEN='| ctpv %s' less -R "$f"
+}}
+map i :page-file
+
+cmd get-mime %{{ file --mime-type -Lb "$f" ; }}
+map M :get-mime
+
+# --------------
+# # copy pasting
+# --------------
+
+# yank paths
+cmd yank-dirname &dirname -- "$f" | head -c-1 | xclip -selection clipboard
+cmd yank-path &printf '%s' "$f" | xclip -selection clipboard
+cmd yank-basename &basename -a -- "$f" | head -c-1 | xclip -i -selection clipboard
+map yy :copy
+map yd :yank-dirname
+map yp :yank-path
+map yb :yank-basename
+map dc :cut
+
+# --------------
+# # Integrations
+# --------------
+
+# eza
+cmd on-select &{{
+    lf -remote "send $id set statfmt \"$(eza -ld --color=always "$f")\""
+}}
+
+# git
+map gp ${{clear; git pull || true; echo "press ENTER"; read ENTER}}
+map gf ${{clear; git fetch || true; echo "press ENTER"; read ENTER}}
+map gs ${{clear; git status || true; echo "press ENTER"; read ENTER}}
+
+# fzf
+cmd fzf_jump ${{
+	type=
+	[ $# -eq 1 ] && [ "$1" = "deep" ] && type=2 || true
+	printer="<%d %Y | %P\n"
+	if [ "$type" = 2 ]; then
+		res="$(find . ! -path . -printf "$printer" | fzf --reverse --header='Jump to ...' || true)"
+	else
+		res="$(find . -maxdepth 1 ! -path . -printf "$printer" | fzf --reverse --header='Jump to ...' || true)"
+	fi
+    if [ -n "$res" ]; then
+		res="$(echo "$res" | cut -d'|' -f2 | sed -E -e 's|^[[:space:]]+||g')"
+        if [ -d "$res" ]; then
+            cmd="cd"
+        else
+            cmd="select"
+        fi
+        res="$(printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+        lf -remote "send $id $cmd \"$res\""
+    fi
+	echo || true
+}}
+map <c-f> :fzf_jump
+map F :fzf_jump deep
+
+# ripgrep
+cmd fzf_ripgrep ${{
+    RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+    res="$(
+        FZF_DEFAULT_COMMAND="$RG_PREFIX ''" \
+            fzf --bind "change:reload:$RG_PREFIX {q} || true" \
+            --ansi --layout=reverse --header 'Search in files' \
+            | cut -d':' -f1 | sed 's/\\/\\\\/g;s/"/\\"/g'
+    )"
+    [ -n "$res" ] && lf -remote "send $id select \"$res\"" || true
+}}
+map <a-f> :fzf_ripgrep
+
+# starship prompt
+cmd setprompt &{{
+    export STARSHIP_SHELL=
+    fmt="$(starship prompt | tr '\n' ' ')"
+    lf -remote "send $id set promptfmt \"$fmt\""
+}}
+:setprompt
+
+# command history
+cmd exec-lf-hist ${{
+	clear
+	cmd=$(
+		lf -remote "query $id history" |
+		awk -F'\t' 'NR > 1 { print $NF}' |
+		sort -u |
+		fzf --bind=ctrl-z:ignore --bind=ctrl-r:toggle-sort --highlight-line +m --scheme=history --tac --prompt='command: ' || true
+	)
+	[ ! -n "$cmd" ] && exit 0
+	cmd="$(echo "$cmd" | sed -E 's|[[:space:]]|<space>|g')"
+	lf -remote "send $id :push $cmd"
+}}
+cmd exec-term-hist ${{
+	file=~/.local/share/lf/term-cmd
+	# adapted from zimfw/fzf
+	zsh -i -c 'fc -R && echo "$(fc -l -L 0 | fzf --prompt='"'command: '"' --bind=ctrl-z:ignore -n2..,.. --scheme=history --bind=ctrl-r:toggle-sort --highlight-line +m --tac)" >| '"$file"
+	[ ! -f "$file" ] && exit 0
+	
+	cmd="$(cat "$file")"
+	rm "$file"
+	[ ! -n "$cmd" ] && exit 0
+	cmd="$(echo "$cmd" | sed -E 's|^ *[0-9]+ +||g' | sed -E 's|[[:space:]]|<space>|g')"
+	lf -remote "send $id :push \$$cmd"
+}}
+map R :exec-lf-hist
+map <c-r> :exec-term-hist
+map . :read; cmd-history-prev
+
+# use lf as filepicker
+cmd filepicker-prompt :{{
+	cmd setprompt &{{ lf -remote "send $id :set promptfmt \"\033[31;1mselect the file and press ALT+RETURN\033[0m\"" ; }}
+}}
+cmd filepicker-mode ${{
+	lf -remote "send $id :filepicker-prompt; setprompt"
+	lf -remote "send $id :set preview false"
+	echo >| /tmp/lf.errlog
+	err=""
+	if [[ ! -v LF_FILEPICKER_FILE ]];  then err+="var LF_FILEPICKER_FILE is not set\n"
+	elif [ -z "$LF_FILEPICKER_FILE" ]; then err+="var LF_FILEPICKER_FILE is empty\n"
+	elif [ -f "$LF_FILEPICKER_FILE" -a ! -w "$LF_FILEPICKER_FILE" ]; then
+		err+="file $LF_FILEPICKER_FILE is not writable\n"
+	fi
+	if [[ ! -v LF_FILEPICKER_WD ]];  then err+="var LF_FILEPICKER_WD is not set\n"
+	elif [ -z "$LF_FILEPICKER_WD" ]; then err+="var LF_FILEPICKER_WD is empty\n"; fi
+
+	if [ -n "$err" ]; then
+		echo "$err" > /tmp/lf.errlog
+		lf -remote "send $id quit"
+		exit 1
+	fi
+
+	lf -remote "send $id :cd $LF_FILEPICKER_WD"
+	lf -remote "send $id :echo select the file and press ALT+RETURN"
+}}
+cmd pick-file ${{
+	[ ! -n "$f" ] && lf -remote "send $id :echoerr no file selected" && exit 1
+	[ ! -f "$f" ] && lf -remote "send $id :echoerr not a file" && exit 1
+
+	if [[ -v LF_FILEPICKER_SUFFIX ]]            && \
+  	   [ -n "$LF_FILEPICKER_SUFFIX" ]           && \
+       [[ ! "$f" = *"$LF_FILEPICKER_SUFFIX" ]]; then
+		lf -remote "send $id :echoerr file does not end with '$LF_FILEPICKER_SUFFIX'"
+		exit 1
+	fi
+	
+	filetype="$(file --mime-type -Lb "$f")"
+	if [[ -v LF_FILEPICKER_MIMETYPE ]]				  && \
+	   [ -n "$LF_FILEPICKER_MIMETYPE" ]				  && \
+	   [ ! "$filetype" = "$LF_FILEPICKER_MIMETYPE" ]; then
+		lf -remote "send $id :echoerr wrong filetype: '$filetype' != '$LF_FILEPICKER_MIMETYPE'"
+		exit 1
+	fi
+
+	echo "$f" > "$LF_FILEPICKER_FILE"
+	lf -remote "send $id :quit"
+}}
+map <a-enter> :pick-file

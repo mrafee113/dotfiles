@@ -1,0 +1,18 @@
+[alias]
+	co = checkout
+	com = commit
+	st = status
+	br = branch
+	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+	type = cat-file -t
+	dump = cat-file -p
+[core]
+	editor = vim
+[user]
+	email = mrafee113@gmail.com
+	name = Mehdi Rafee
+[advice]
+	detachedHead = false
+[safe]
+	directory = /run/media/francis/Silicon Power Speedy/Studio/Projects
+	directory = *

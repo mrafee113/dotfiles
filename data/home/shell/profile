@@ -1,0 +1,8 @@
+export QT_QPA_PLATFORMTHEME="qt5ct"
+export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
+
+if [ -d "$HOME"/.zim/modules/terminal ]; then
+	source "$HOME"/.zim/modules/terminal/src.zsh env
+elif [ -d "$HOME"/Studio/Terminal ]; then
+	source "$HOME"/Studio/Terminal/src.zsh env
+fi

@@ -1,0 +1,268 @@
+{
+  "log": {
+    "level": "warn",
+    "output": "box.log",
+    "timestamp": true
+  },
+  "dns": {
+    "servers": [
+      {
+        "tag": "dns-remote",
+        "address": "1.0.0.1",
+        "address_resolver": "dns-direct"
+      },
+      {
+        "tag": "dns-trick-direct",
+        "address": "https://sky.rethinkdns.com/",
+        "detour": "direct-fragment"
+      },
+      {
+        "tag": "dns-direct",
+        "address": "8.8.4.4",
+        "address_resolver": "dns-local",
+        "detour": "direct"
+      },
+      {
+        "tag": "dns-local",
+        "address": "local",
+        "detour": "direct"
+      },
+      {
+        "tag": "dns-block",
+        "address": "rcode://success"
+      }
+    ],
+    "rules": [
+      {
+        "domain": [
+          "sv9-h2.tsteam999.top",
+          "sv9-h1.tsteam999.top",
+          "sv9-h3.tsteam999.top"
+        ],
+        "server": "dns-direct"
+      },
+      {
+        "domain": "cp.cloudflare.com",
+        "server": "dns-remote",
+        "rewrite_ttl": 3000
+      }
+    ],
+    "final": "dns-remote",
+    "static_ips": {
+      "sky.rethinkdns.com": [
+        "188.114.97.3",
+        "188.114.96.3",
+        "2a06:98c1:3120::3",
+        "2a06:98c1:3121::3",
+        "104.17.147.22",
+        "104.17.148.22",
+        "188.114.97.3",
+        "188.114.96.3",
+        "2a06:98c1:3120::3",
+        "2a06:98c1:3121::3"
+      ]
+    },
+    "independent_cache": true
+  },
+  "inbounds": [
+    {
+      "type": "mixed",
+      "tag": "mixed-in",
+      "listen": "127.0.0.1",
+      "listen_port": 2334,
+      "sniff": true,
+      "sniff_override_destination": true,
+      "set_system_proxy": true
+    },
+    {
+      "type": "direct",
+      "tag": "dns-in",
+      "listen": "127.0.0.1",
+      "listen_port": 6450
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "selector",
+      "tag": "select",
+      "outbounds": [
+        "auto",
+        "همه-نت-ها reality grpc direct vless § 34594 3",
+        "همه-نت-ها reality grpc direct vless § 34594 4",
+        "همه نت ها reality grpc direct vless § 34594 6"
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "urltest",
+      "tag": "auto",
+      "outbounds": [
+        "همه-نت-ها reality grpc direct vless § 34594 3",
+        "همه-نت-ها reality grpc direct vless § 34594 4",
+        "همه نت ها reality grpc direct vless § 34594 6"
+      ],
+      "url": "http://connectivitycheck.gstatic.com/generate_204",
+      "interval": "10m0s",
+      "idle_timeout": "1h40m0s"
+    },
+    {
+      "type": "vless",
+      "tag": "همه-نت-ها reality grpc direct vless § 34594 3",
+      "server": "sv9-h1.tsteam999.top",
+      "server_port": 34594,
+      "uuid": "bca7b458-b298-4015-aa07-967423604bf7",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.tumblr.com",
+        "alpn": "http/1.1",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "TuyjM3l5QcOCTxN29YacdcKnuQSXVT-fxJVGqfYznX4",
+          "short_id": "2b6ea8606770"
+        }
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": "lvkoHkCfjfc01F8tE42uEYRdMfGo2"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "همه-نت-ها reality grpc direct vless § 34594 4",
+      "server": "sv9-h3.tsteam999.top",
+      "server_port": 34594,
+      "uuid": "bca7b458-b298-4015-aa07-967423604bf7",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.speedtest.net",
+        "alpn": "http/1.1",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "TuyjM3l5QcOCTxN29YacdcKnuQSXVT-fxJVGqfYznX4",
+          "short_id": "2b6ea8606770"
+        }
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": "lvkoHkCfjfc01F8tE42uEYRdMfGo2"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "همه نت ها reality grpc direct vless § 34594 6",
+      "server": "sv9-h2.tsteam999.top",
+      "server_port": 34594,
+      "uuid": "bca7b458-b298-4015-aa07-967423604bf7",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.who.int",
+        "alpn": "http/1.1",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "TuyjM3l5QcOCTxN29YacdcKnuQSXVT-fxJVGqfYznX4",
+          "short_id": "2b6ea8606770"
+        }
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": "lvkoHkCfjfc01F8tE42uEYRdMfGo2"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "dns",
+      "tag": "dns-out"
+    },
+    {
+      "type": "direct",
+      "tag": "direct"
+    },
+    {
+      "type": "direct",
+      "tag": "direct-fragment",
+      "tls_fragment": {
+        "enabled": true,
+        "size": "1-500",
+        "sleep": "0-500"
+      }
+    },
+    {
+      "type": "direct",
+      "tag": "bypass"
+    },
+    {
+      "type": "block",
+      "tag": "block"
+    }
+  ],
+  "route": {
+    "rules": [
+      {
+        "rule_set": [
+          "geoip-ir",
+          "geosite-ir"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "inbound": "dns-in",
+        "outbound": "dns-out"
+      },
+      {
+        "port": 53,
+        "outbound": "dns-out"
+      },
+      {
+        "clash_mode": "Direct",
+        "outbound": "direct"
+      },
+      {
+        "clash_mode": "Global",
+        "outbound": "select"
+      }
+    ],
+    "rule_set": [
+      {
+        "type": "remote",
+        "tag": "geoip-ir",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/hiddify/hiddify-geo/rule-set/country/geoip-ir.srs",
+        "update_interval": "120h0m0s"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-ir",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/hiddify/hiddify-geo/rule-set/country/geosite-ir.srs",
+        "update_interval": "120h0m0s"
+      }
+    ],
+    "final": "select",
+    "auto_detect_interface": true,
+    "override_android_vpn": true
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true,
+      "path": "clash.db"
+    },
+    "clash_api": {
+      "external_controller": "127.0.0.1:6756",
+      "secret": "DbzYtwndvfZGIr3t"
+    }
+  }
+}

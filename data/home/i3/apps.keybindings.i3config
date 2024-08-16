@@ -1,0 +1,61 @@
+# i3 config file (v4)
+
+# --------------
+# # app keybinds
+# --------------
+
+# Bash scripts providing a collection of terminal applications in a simple UI
+# https://github.com/puxplaying/toolbox/
+# bindsym $mod+Ctrl+b exec --no-startup-id i3-sensible-terminal -e 'bmenu'
+
+# https://calamares.io/
+# https://gitlab.manjaro.org/applications/calamares
+# bindsym $mod+i exec calamares_polkit
+
+# bindsym $mod+Ctrl+a exec --no-startup-id i3-sensible-terminal -e 'setup'
+
+# bindsym $mod+F2 exec palemoon
+
+# bindsym $mod+F3 exec pcmanfm
+# bindsym $mod+Shift+F3 exec nemo $HOME/Bedroom
+
+# An ncurses console audio player designed to be powerful and easy to use
+# https://moc.daper.net/
+# bindsym $mod+F5 exec --no-startup-id i3-sensible-terminal -e 'mocp'  # musid
+
+# simple screenshot script using scrot
+# https://classicforum.manjaro.org/index.php?topic=31977.msg261964#msg261964
+# bindsym Print exec --no-startup-id i3-scrot
+# bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
+# bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
+bindsym Print exec --no-startup-id "flameshot gui"
+bindsym Shift+Print exec --no-startup-id "flameshot full --region '1920x1080+0+0'"
+
+# bindsym $mod+Shift+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
+
+# kill a client by its X resource
+# when run without arguments a cursor will appear to choose a non-root window to kill
+bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
+
+bindsym Ctrl+Return exec gnome-calculator
+
+# terminal
+# /usr/bin/terminal belongs to i3-scripts which is just a bash script that calls urxvt
+#bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec --no-startup-id alacritty
+bindsym $mod+Ctrl+Return exec --no-startup-id alacritty --title floating-alacritty
+
+# start dmenu (a program launcher)
+# bindsym $mod+d exec --no-startup-id dmenu_run
+# A more modern dmenu replacement is rofi:
+# bindcode $mod+40 exec "rofi -modi drun,run -show drun"
+# There also is i3-dmenu-desktop which only displays applications shipping a
+# .desktop file. It is a wrapper around dmenu, so you need that installed.
+# bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
+# bindsym $mod+d exec --no-startup-id dmenu_recency
+
+# launch categorized menu (manjaro)
+# bindsym $mod+z exec --no-startup-id morc_menu
+
+# polybar
+bindsym $mod+m exec --no-startup-id polybar-msg cmd toggle

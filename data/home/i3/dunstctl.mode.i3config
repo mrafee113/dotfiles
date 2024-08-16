@@ -1,0 +1,15 @@
+# i3 config file (v4)
+
+# ----------------
+# # mode: dunstctl
+# ----------------
+
+set $mode_dunstctl dunst: (c)lose last, (C)lose all, (s)how last
+bindsym $mod+Ctrl+d mode "$mode_dunstctl"
+mode "$mode_dunstctl" {
+	bindsym c	    exec --no-startup-id dunstctl close,       mode "default"
+	bindsym Shift+c exec --no-startup-id dunstctl close-all,   mode "default"
+	bindsym s	    exec --no-startup-id dunstctl history-pop, mode "default"
+	bindsym Return	 										   mode "default"
+	bindsym Escape	 										   mode "default"
+}

@@ -1,0 +1,83 @@
+# i3 config file (v4)
+
+# ----------------------------------
+# reference for keyboard keys syntax
+# ----------------------------------
+# - refer to `xmodmap -pm` and `xmodmap -pke`
+#
+# shift,   Shift_L,   Shift_R
+# control, Control_L, Control_R
+# lock,    Caps_Lock
+# mod1,    Alt_L,     Alt_R, Meta_L
+# mod4,    Super_L,   Super_R, Hyper_L
+#
+# keycode keysym[s]
+#  37     Control_L
+# 105     Control_R
+#  50     Shift_L
+#  62     Shift_R
+#  64     Alt_L, Meta_L
+# 108     Alt_R, Meta_R
+# 133     Super_L
+# 134     Super_R
+#  66     Caps_Lock      
+#
+#  36     Return
+#  22     Backspace
+#  23     Tab
+#  65     space
+# 135     Menu
+#
+# 107     Print, Sys_Req
+# 118     Insert
+# 119     Delete
+# 110     Home
+# 115     End
+# 112     Prior
+# 117     Next
+#
+# 111     Up
+# 113     Left
+# 114     Right
+# 116     Down
+#
+#  10     1,              exclam      !
+#  11     2,              at          @
+#  12     3,              numbersign  #
+#  13     4,              dollar      $
+#  14     5,              percent     %
+#  15     6,              asciicircum ^
+#  16     7,              ampersand   &
+#  17     8,              asterisk    *
+#  18     9,              parenleft   (
+#  19     0,              parenright  )
+#  20     minus        -, underscore  _
+#  21     equal        =, plus        +
+#  34     bracketleft  [, braceleft   {
+#  35     bracketright ], braceright  }
+#  47     semicolon    ;, colon       :
+#  48     apostrophe   ', quotedbl    "
+#  49     grave        `, asciitilde  ~
+#  51     backslash    \, bar         |
+#  59     comma        ,, less        <
+#  60     period       ., greated     >
+#  61     slash        /, question    ?
+#
+# 121     XF86AudioMute
+# 122     XF86AudioLowerVolume
+# 123     XF86AudioRaiseVolume
+# 124     XF86PowerOff
+# 128     XF86LaunchA
+# 171     XF86AudioNext
+# 172     XF86AudioPlay, XF86AudioPause
+# 173     XF86AudioPrev
+# 174     XF86AudioStop
+# 185     XF86ScrollUp
+# 186     XF86ScrollDown
+
+# ------------------
+# # keyboard layouts
+# ------------------
+exec --no-startup-id setxkbmap -layout us,ir -variant ,pes_keypad -option grp:rctrl_rshift_toggle
+bindsym Shift+Ctrl+F4 exec --no-startup-id setxkbmap -layout us
+bindsym Shift+Ctrl+F5 exec --no-startup-id "setxkbmap -layout us,ir -variant ,pes_keypad -option grp:rctrl_rshift_toggle"

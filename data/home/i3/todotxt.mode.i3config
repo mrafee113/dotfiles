@@ -1,0 +1,37 @@
+# i3 config file (v4)
+
+# -----------
+# # todo mode
+# -----------
+
+set $mode_todo_meta todo: meta: (c)reate, (C)reate and show, (r)emove, (R)eport, (s)how, (h)ide, restart con(k)y, (q)uit conky
+set $mode_todo todo: (a)dd, (d)o, (D)elete (u)pdate, (c)opy, (p)rio, de(P)rio or (m)ove entry, (s)howall, (r)evert, (t)odo meta
+bindsym $mod+t mode "$mode_todo"
+mode "$mode_todo" {
+    bindsym a	    exec --no-startup-id ci3-todotxt-manager.sh add,     mode "default"
+    bindsym d		exec --no-startup-id ci3-todotxt-manager.sh do,      mode "default"
+    bindsym c		exec --no-startup-id ci3-todotxt-manager.sh copy,    mode "default"
+    bindsym Shift+d exec --no-startup-id ci3-todotxt-manager.sh delete,  mode "default"
+    bindsym u		exec --no-startup-id ci3-todotxt-manager.sh update,  mode "default"
+	bindsym p		exec --no-startup-id ci3-todotxt-manager.sh prio,    mode "default"
+    bindsym Shift+P exec --no-startup-id ci3-todotxt-manager.sh deprio,  mode "default"
+    bindsym m		exec --no-startup-id ci3-todotxt-manager.sh move,    mode "default"
+    bindsym s		exec --no-startup-id ci3-todotxt-manager.sh showall, mode "default"
+    bindsym r		exec --no-startup-id ci3-todotxt-manager.sh revert,  mode "default"
+	bindsym t														     mode "$mode_todo_meta"
+    bindsym Return													     mode "default"
+    bindsym Escape													     mode "default"
+}
+
+mode "$mode_todo_meta" {
+	bindsym c       exec --no-startup-id ci3-todotxt-manager.sh create,			   mode "default"
+	bindsym Shift+c exec --no-startup-id ci3-todotxt-manager.sh Create,			   mode "default"
+	bindsym r       exec --no-startup-id ci3-todotxt-manager.sh remove,			   mode "default"
+	bindsym Shift+r exec --no-startup-id ci3-todotxt-manager.sh report,			   mode "default"
+	bindsym s       exec --no-startup-id ci3-todotxt-manager.sh show,			   mode "default"
+	bindsym h       exec --no-startup-id ci3-todotxt-manager.sh hide,			   mode "default"
+	bindsym k	    exec --no-startup-id $HOME/.config/conky/launch.sh todo.rc -f, mode "default"
+	bindsym q       exec --no-startup-id $HOME/.config/conky/launch.sh todo.rc -q, mode "default"
+	bindsym Retrun																   mode "default"
+	bindsym Escape																   mode "default"
+}

@@ -1,0 +1,25 @@
+# i3 config file (v4)
+
+# ------------
+# # cheat mode
+# ------------
+
+set $mode_cheat cheat: (v)iew, (e)dit, (c)reate, (d)elete, chea(t) meta
+set $mode_cheat_meta cheat: meta: (c)reate, (r)emove
+bindsym $mod+c mode "$mode_cheat"
+mode "$mode_cheat" {
+	bindsym v      exec --no-startup-id ci3-cheat-manager.sh view,   mode "default"
+	bindsym e      exec --no-startup-id ci3-cheat-manager.sh edit,   mode "default"
+	bindsym c      exec --no-startup-id ci3-cheat-manager.sh create, mode "default"
+	bindsym d      exec --no-startup-id ci3-cheat-manager.sh delete, mode "default"
+	bindsym t                                                        mode "$mode_cheat_meta"
+	bindsym Return                                                   mode "default"
+	bindsym Escape                                                   mode "default"
+}
+
+mode "$mode_cheat_meta" {
+	bindsym c      exec --no-startup-id ci3-cheat-manager.sh create-path, mode "default"
+	bindsym r      exec --no-startup-id ci3-cheat-manager.sh remove-path, mode "default"
+	bindsym Retrun														  mode "default"
+	bindsym Escape														  mode "default"
+}

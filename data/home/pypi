@@ -1,0 +1,14 @@
+[distutils]
+index-servers =
+  pypi
+  pypitest
+
+[pypi]
+repository: https://pypi.python.org/pypi
+username: __token__
+# keyring set https://upload.pypi.org/legacy/ __token__
+
+[pypitest]
+repository: https://testpypi.python.org/pypi
+username: mrafee113
+# keyring set https://test.pypi.org/legacy/ mrafee113

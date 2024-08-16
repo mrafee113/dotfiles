@@ -1,0 +1,46 @@
+-- Configuration settings: https://conky.cc/config_settings
+
+conky.config = {
+    alignment = 'top_left',
+    background = true,
+	color4 = 'C17672',
+	color3 = 'D5EAE0',
+	color2 = '5D7B86',
+	color5 = '9B9A42',
+    cpu_avg_samples = 2,
+    default_color = 'FFFFFF',
+    double_buffer = true,
+--	font = 'Bitstream Vera Sans:size=9',
+--	font = 'Roboto:style=Light:size=9',
+--	font = 'DejaVu Sans:style=Book:size=9',
+--	font = 'FontAwesome:size=9',
+	font = 'JetBrains:size=9.5',
+    draw_shades = false,
+    gap_x = 25,
+    gap_y = 45,
+    minimum_width = 40,
+ 	maximum_text_width = 50,
+    no_buffers = true,
+    own_window = true,
+    own_window_type = 'override',
+	own_window_transparent = true,
+    update_interval = 2.0,
+    use_xft = true,
+	text_buffer_size = 1024,
+	override_utf8_locale = true,
+}
+
+-- Variables: https://conky.cc/variables
+conky.text = [[${voffset 5}]]
+
+local file = io.open("/home/francis/.config/conky/todo.conf", "r")
+for line in file:lines() do
+    local name, filepath = line:match("(%S+) (%S+)")
+    if name and filepath then
+        conky.text = conky.text .. [[
+${voffset 15}${color4}> ]] .. name .. [[ ${color5}| ${execp todo.sh -d ]] .. filepath .. [[ -c count -z -t} ${color4}${hr}
+${execp TODOTXT_VERBOSE=0 todo.sh -d ]] .. filepath .. [[ -c ls | fold -s -w 100}
+]]
+    end
+end
+file:close()

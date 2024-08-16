@@ -1,0 +1,190 @@
+#!/usr/bin/zsh
+
+# if you wanna benchmark zsh use this along with cmd `zprof`
+# zmodload zsh/zprof
+
+#### this should be the first line
+if [ "$USER" = root ]; then
+	export HOME_BAK="$HOME"
+	export HOME="/home/francis"
+fi
+
+#
+# History
+#
+
+HISTFILE=~/.histfile
+HISTSIZE=10000000000
+SAVEHIST=$HISTSIZE
+
+#
+# Input/output
+#
+
+# Set editor default keymap to emacs (`-e`) or vi (`-v`)
+bindkey -v
+
+# Remove path separator from WORDCHARS.
+WORDCHARS=${WORDCHARS//[\/]}
+
+#
+# starship prompt
+#
+
+eval "$(starship init zsh)"
+
+# -----------------
+# Zim configuration
+# -----------------
+
+# Modules are installed using git by default.
+# If you don't have git installed, or if you want to take advantage of
+# our degit tool for faster and lighter module installations, you can
+# set degit as the default tool with:
+zstyle ':zim:zmodule' use 'degit'
+
+# --------------------
+# Module configuration
+# --------------------
+
+#
+# compinstall
+#
+
+source /home/francis/.zshrc.zni
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
+COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+HIST_STAMPS="yyyy-mm-dd"
+
+#
+# git
+#
+
+# Set a custom prefix for the generated aliases. The default prefix is 'G'.
+zstyle ':zim:git' aliases-prefix 'G'
+
+#
+# zsh-autosuggestions
+#
+
+# Disable automatic widget re-binding on each precmd. This can be set when
+# zsh-users/zsh-autosuggestions is the last module in your ~/.zimrc.
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+
+#
+# zsh-syntax-highlighting
+#
+
+# Set what highlighters will be used.
+# See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+
+# ------------------
+# Initialize modules
+# ------------------
+
+if [[ ! -v NO_ZSH_EXTRAS ]] || [[ -v NO_ZSH_EXTRAS && ! "$NO_ZSH_EXTRAS" = "true" ]]; then
+	ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
+	# Download zimfw plugin manager if missing.
+	if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
+	  if (( ${+commands[curl]} )); then
+	    curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
+	        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+	  else
+	    mkdir -p ${ZIM_HOME} && wget -nv -O ${ZIM_HOME}/zimfw.zsh \
+	        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+	  fi
+	fi
+	# Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
+	if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
+	  source ${ZIM_HOME}/zimfw.zsh init -q
+	fi
+	# Initialize modules.
+	source ${ZIM_HOME}/init.zsh
+fi
+
+# ------------------------------
+# Post-init module configuration
+# ------------------------------
+
+#
+# zsh-history-substring-search
+#
+
+if [[ ! -v NO_ZSH_EXTRAS ]] || [[ -v NO_ZSH_EXTRAS && ! "$NO_ZSH_EXTRAS" = "true" ]]; then
+	zmodload -F zsh/terminfo +p:terminfo
+	# Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
+	for key ('^[[A' '^P' ${terminfo[kcuu1]}) bindkey ${key} history-substring-search-up
+	for key ('^[[B' '^N' ${terminfo[kcud1]}) bindkey ${key} history-substring-search-down
+	for key ('k') bindkey -M vicmd ${key} history-substring-search-up
+	for key ('j') bindkey -M vicmd ${key} history-substring-search-down
+	unset key
+fi
+
+# --------
+# Etcetera
+# --------
+
+#
+# colors
+#
+eval "$(/usr/bin/dircolors "$HOME"/.dir_colors)"
+
+#
+# venv
+#
+
+if [ ! "$USER" = root ] && ([[ ! -v NO_ZSH_EXTRAS ]] || [[ -v NO_ZSH_EXTRAS && ! "$NO_ZSH_EXTRAS" = "true" ]]); then
+	# optimization: add `return 0` after `function virtualenvwrapper_run_hook()` to disable the hooks in $WORKON_HOME
+	source "$HOME"/.local/bin/virtualenvwrapper-s.sh
+	workon system-venv
+fi
+
+#
+# completions
+#
+
+# pip zsh completion start
+if [[ ! -v NO_ZSH_EXTRAS ]] || [[ -v NO_ZSH_EXTRAS && ! "$NO_ZSH_EXTRAS" = "true" ]]; then
+	function _pip_completion {
+	  local words cword
+	  read -Ac words
+	  read -cn cword
+	  reply=( $( COMP_WORDS="$words[*]" \
+	             COMP_CWORD=$(( cword-1 )) \
+	             PIP_AUTO_COMPLETE=1 $words[1] 2>/dev/null ))
+	}
+	compctl -K _pip_completion pip
+fi
+
+# batman completion
+if [[ ! -v NO_ZSH_EXTRAS ]] || [[ -v NO_ZSH_EXTRAS && ! "$NO_ZSH_EXTRAS" = "true" ]]; then
+	compdef _man batman
+	compdef _man batman-s
+fi
+
+# warp-cli
+if [[ ! -v NO_ZSH_EXTRAS ]] || [[ -v NO_ZSH_EXTRAS && ! "$NO_ZSH_EXTRAS" = "true" ]]; then
+	eval "$(warp-cli generate-completions zsh)"
+fi
+
+#### this should be the last line
+if [ "$USER" = root ]; then
+	export HOME="$HOME_BAK"
+	unset HOME_BAK
+fi

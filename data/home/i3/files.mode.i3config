@@ -1,0 +1,39 @@
+# i3 config file (v4)
+
+# ------------
+# # files mode
+# ------------
+
+# LF: WARNING: TODO: LS_COLORS is getting overwritten somewhere between login .zprofile and terminal call - that's as far as I know I'm afraid
+set $mode_credentials credentials: (v)iew, (c)reate, (d)elete, (m)odify
+set $mode_quick_dir quick dir: (d)ownloads, (D)ocuments, (p)rojects, (s)cripts, (t)erminal
+set $mode_files files: l(f), floating-l(F), firefo(x), (q)uick open, (c)redentials
+bindsym $mod+Ctrl+f mode "$mode_files"
+mode "$mode_files" {
+	bindsym q       mode "$mode_quick_dir"
+	bindsym c       mode "$mode_credentials"
+	bindsym f       exec --no-startup-id i3-sensible-terminal -e zsh -c "eval \$(dircolors ~/.dir_colors) && lf", mode "default"
+	bindsym Shift+F exec --no-startup-id i3-sensible-terminal --title floating-lf -e zsh -c "eval \$(dircolors ~/.dir_colors) && lf -command ':set preview false'", mode "default"
+	bindsym x       exec firefox, mode "default"
+	bindsym Return  mode "default"
+	bindsym Escape  mode "default"
+}
+
+mode "$mode_quick_dir" {
+	bindsym d      exec --no-startup-id i3-sensible-terminal -e lf "$HOME/Bedroom/Downloads", mode "default"
+	bindsym D      exec --no-startup-id i3-sensible-terminal -e lf "$HOME/Bedroom/Documents", mode "default"
+	bindsym p      exec --no-startup-id i3-sensible-terminal -e lf "$HOME/Studio/Projects",   mode "default"
+	bindsym s      exec --no-startup-id i3-sensible-terminal -e lf "$HOME/Studio/Scripts",    mode "default"
+	bindsym t      exec --no-startup-id i3-sensible-terminal -e lf "$HOME/Studio/Terminal",   mode "default"
+	bindsym Return  														   mode "default"
+	bindsym	Escape															   mode "default"
+}
+
+mode "$mode_credentials" {
+	bindsym v		exec --no-startup-id ci3-credentials-manager.sh view,   mode "default"
+	bindsym c		exec --no-startup-id ci3-credentials-manager.sh create, mode "default"
+	bindsym d		exec --no-startup-id ci3-credentials-manager.sh delete, mode "default"
+	bindsym m		exec --no-startup-id ci3-credentials-manager.sh modify, mode "default"
+	bindsym Return															mode "default"
+	bindsym Escape															mode "default"
+}

@@ -1,0 +1,54 @@
+# -------------
+# # shell stuff
+# -------------
+
+# interpreter for shell commands
+# set shell sh
+set shell zsh
+
+# set '-eu' options for shell commands
+# These options are used to have safer shell commands. Option '-e' is used to
+# exit on error and option '-u' is used to give error for unset variables.
+# Option '-f' disables pathname expansion which can be useful when $f, $fs, and
+# $fx variables contain names with '*' or '?' characters. However, this option
+# is used selectively within individual commands as it can be limiting at
+# times.
+# set shellopts '-eu' # shell sh
+set shellopts '-euy' # shell zsh
+
+# set internal field separator (IFS) to "\n" for shell commands
+# This is useful to automatically split file names in $fs and $fx properly
+# since default file separator used in these variables (i.e. 'filesep' option)
+# is newline. You need to consider the values of these options and create your
+# commands accordingly.
+set ifs "\n"
+
+set icons true
+set truncatechar …
+
+# -------------------------
+# # sourcing configurations
+# -------------------------
+
+source /home/francis/.config/lf/mappings.conf
+source /home/francis/.config/lf/utils.conf
+source /home/francis/.config/lf/paste.special.conf
+source /home/francis/.config/lf/delete.special.conf
+source /home/francis/.config/lf/on.special.conf
+source /home/francis/.config/lf/open.special.conf
+source /home/francis/.config/lf/local.conf
+source /home/francis/.config/lf/bookmark.movement.conf
+source /home/francis/.config/lf/movement.conf
+source /home/francis/.config/lf/preview.conf
+source /home/francis/.config/lf/make.file-dir.conf
+source /home/francis/.config/lf/rename.file-dir.conf
+source /home/francis/.config/lf/exec.file-dir.conf
+source /home/francis/.config/lf/archive.file-dir.conf
+source /home/francis/.config/lf/file-dir.conf
+source /home/francis/.config/lf/copy.conf
+source /home/francis/.config/lf/git.conf
+source /home/francis/.config/lf/search.conf
+source /home/francis/.config/lf/prompt.conf
+source /home/francis/.config/lf/history.conf
+source /home/francis/.config/lf/filepicker.conf
+source /home/francis/.config/lf/credential-files.conf

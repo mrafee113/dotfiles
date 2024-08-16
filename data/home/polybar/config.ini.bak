@@ -1,0 +1,419 @@
+; https://github.com/polybar/polybar
+
+include-file = ~/.config/polybar/colors.ini
+
+[base-bar]
+width = 100%
+height = 24pt
+radius = 6
+
+; dpi = 96
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3pt
+
+border-size = 4pt
+border-color = #00000000
+
+padding-left = 1
+padding-right = 1
+
+module-margin = 1
+
+seperator = /
+seperator-foreground = ${colors.disabled}
+
+font-0 = monospace;2
+font-1 = JetBrainsMono Nerd Font,JetBrainsMono NF:style=Regular;2
+font-2 = Symbols Nerd Font Mono:style=Regular;2
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+enable-ipc = true
+
+; wm-restack = generic
+; wm-restack = bspwm
+; wm-restack = i3
+
+; override-redirect = true
+
+[bar/bar-1]
+inherit = base-bar
+
+bottom = true
+
+line-size = 1pt
+border-top-size = 2pt
+
+modules-left = i3
+; modules-center = 
+modules-right = stopwatch timer pomodoro-menu pomodoro keyboard-layout volume systray
+; modules-right = systray
+
+[bar/bar-2]
+inherit = base-bar
+
+bottom = false
+
+line-size = 1pt
+border-bottom-size = 2pt
+
+modules-left = cpu-fan cpu-t gpu-fan gpu-t
+modules-center = pacman-updates xwindow date
+modules-right = cpu memory acpi-t battery-s
+
+[module/i3]
+type = internal/i3
+
+strip-wsnumber = true
+index-sort = true
+enable-click = true
+enable-scroll = false
+
+format = <label-state> <label-mode>
+label-mode = %mode%
+label-mode-padding = 0
+label-mode-background = ${colors.background}
+
+label-focused = %index%
+label-focused-foreground = ${colors.primary}
+label-focused-background = ${colors.background}
+label-focused-underline = ${colors.alert}
+label-focused-padding = 0
+
+label-unfocused = %index%
+label-unfocused-padding = 0
+
+label-visible = %index%
+label-visible-underline = ${colors.alert}
+label-visible-padding = 0
+
+label-urgent = %index%
+label-urgent-foreground = ${colors.primary}
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 0
+
+label-separator = |
+label-separator-padding = 1
+label-separator-foreground = ${colors.secondary}
+
+[module/systray]
+type = internal/tray
+
+format-margin = 8pt
+tray-spacing = 10pt
+; tray-padding = 5pt
+
+; relative to bar height
+tray-size = 85%
+
+[module/xwindow]
+type = internal/xwindow
+
+label = %class%
+label-foreground = ${colors.info}
+
+format-prefix = "󱕷 "
+format-prefix-font = 3
+format-prefix-foreground = ${colors.primary}
+
+[module/memory]
+type = internal/memory
+interval = 2
+
+warn-percentage = 50
+
+label = %percentage_used:2%% %gb_used%
+format-foreground = ${colors.info}
+format-warn-foreground = ${colors.alert}
+
+format-prefix = " "
+format-prefix-font = 3
+format-prefix-foreground = ${colors.primary}
+
+format-warn-prefix = " "
+format-warn-prefix-font = 3
+format-warn-prefix-foreground = ${colors.primary}
+
+[module/cpu]
+type = internal/cpu
+
+interval = 2
+
+label = %percentage:2%%
+format-foreground = ${colors.info}
+
+warn-percentage = 50
+label-warn = %percentage:2%%
+format-warn-foreground = ${colors.alert}
+
+format-prefix = "󰻠 "
+format-prefix-font = 3
+format-prefix-foreground = ${colors.primary}
+
+format-warn-prefix = "󰻠 "
+format-warn-prefix-font = 3
+format-warn-prefix-foreground = ${colors.primary}
+
+[module/date]
+type = custom/script
+exec = ~/.config/polybar/scripts/date.sh
+interval = 1
+
+label-font = 3
+label-foreground = ${colors.primary}
+
+[module/battery]
+type = internal/battery
+full-at = 65
+low-at = 35
+battery = BAT0
+adapter = AC0
+poll-interval = 5
+
+label-charging = +%percentage_raw%%
+label-charging-foreground = ${colors.info}
+format-charging = <ramp-capacity> <label-charging>
+format-charging-foreground = ${colors.primary}
+
+label-discharging = -%percentage_raw%%
+label-discharging-foreground = ${colors.info}
+format-discharging = <ramp-capacity> <label-discharging>
+format-discharging-foreground = ${colors.primary}
+
+label-full = +%percentage_raw%%
+label-full-foreground = ${colors.alert}
+format-full = <ramp-capacity> <label-full>
+format-full-foreground = ${colors.primary}
+
+label-low = -%percentage_raw%%
+label-low-foreground = ${colors.alert}
+format-low = <ramp-capacity> <label-low>
+format-low-foreground = ${colors.primary}
+
+ramp-capacity-0 = 󰢟
+ramp-capacity-1 = 󰂈
+ramp-capacity-2 = 󰂉
+ramp-capacity-3 = 󰂊
+ramp-capacity-4 = 󱊦
+
+[module/battery-s]
+type = custom/script
+interval = 5
+exec = ~/.config/polybar/scripts/battery.sh
+format-font = 3
+
+[temperature]
+type = internal/temperature
+interval = 2
+units = false
+
+label = %temperature-c%°
+label-font = 3
+label-foreground = ${colors.info}
+
+label-warn = %temperature-c%°
+label-warn-font = 3
+label-warn-foreground = ${colors.alert}
+
+format = <label>
+format-prefix-foreground = ${colors.primary}
+
+format-warn = <label-warn>
+format-warn-prefix-foreground = ${colors.primary}
+
+; $ for i in /sys/class/thermal/thermal_zone*; do echo "$i: $(<$i/type)"; done
+; /sys/class/thermal/thermal_zone0: acpitz
+; /sys/class/thermal/thermal_zone1: INT3400 Thermal
+; /sys/class/thermal/thermal_zone2: pch_skylake
+; /sys/class/thermal/thermal_zone3: B0D4
+; /sys/class/thermal/thermal_zone4: iwlwifi_1
+; /sys/class/thermal/thermal_zone5: x86_pkg_temp
+
+[module/acpi-t]
+; battery acpitz
+inherit = temperature
+
+thermal-zone = 0
+warn-temperature = 65
+
+format-prefix = "󱊣  "
+format-prefix-font = 3
+format-warn-prefix = "󱊣  "
+
+[module/cpu-t]
+; x86_pkg_temp
+inherit = temperature
+
+thermal-zone = 5
+warn-temperature = 65
+
+format-prefix = "󰻠  "
+format-prefix-font = 3
+format-warn-prefix = "󰻠  "
+
+[module/gpu-t]
+type = custom/script
+exec = ~/.config/polybar/scripts/nvidia-temp.sh
+
+label = %output%°
+label-foreground = ${colors.info}
+label-fail = %output%°
+label-fail-foreground = ${colors.alert}
+
+format-prefix = "  "
+format-prefix-font = 3
+format-prefix-foreground = ${colors.primary}
+
+[settings]
+screenchange-reload = true
+pseudo-transparency = true
+
+[fan-speed]
+type = custom/script
+interval = 10
+
+
+format = <label> RPM
+format-foreground = ${colors.info}
+
+format-prefix-font = 3
+format-prefix-foreground = ${colors.primary}
+
+[module/cpu-fan]
+inherit = fan-speed
+exec = ~/.config/polybar/scripts/fan-speed.sh cpu
+format-prefix = "󰻠 󰈐 "
+
+[module/gpu-fan]
+inherit = fan-speed
+exec = ~/.config/polybar/scripts/fan-speed.sh gpu
+format-prefix = " 󰈐 "
+
+[module/pacman-updates]
+type = custom/script
+interval = 60
+exec = ~/.config/polybar/scripts/pacman-updates.sh
+
+format-foreground = ${colors.info}
+format-prefix = "󱧕 "
+format-prefix-font = 3
+format-prefix-foreground = ${colors.primary}
+
+format-fail = "󰏗"
+format-fail-font = 3
+format-fail-foreground = ${colors.primary}
+
+[module/pomodoro]
+type = custom/script
+interval = 1
+exec = ~/.config/polybar/scripts/pomodoro-state.sh
+
+format-font = 3
+format-foreground = ${colors.primary}
+
+format-fail-font = 3
+format-fail-foreground = ${colors.primary}
+
+[module/pomodoro-menu]
+type = custom/menu
+
+expand-right = false
+
+menu-0-6 = "  "
+menu-0-6-font = 3
+menu-0-6-foreground = ${colors.secondary}
+menu-0-6-exec = gnome-pomodoro --start
+
+menu-0-5 = "  "
+menu-0-5-font = 3
+menu-0-5-foreground = ${colors.secondary}
+menu-0-5-exec = gnome-pomodoro --stop
+
+menu-0-4 = "  "
+menu-0-4-font = 3
+menu-0-4-foreground = ${colors.secondary}
+menu-0-4-exec = gnome-pomodoro --pause
+
+menu-0-3 = " 󱖏 "
+menu-0-3-font = 3
+menu-0-3-foreground = ${colors.secondary}
+menu-0-3-exec = gnome-pomodoro --resume
+
+menu-0-2 = "  "
+menu-0-2-font = 3
+menu-0-2-foreground = ${colors.secondary}
+menu-0-2-exec = gnome-pomodoro --reset
+
+menu-0-1 = " 󰼧 "
+menu-0-1-font = 3
+menu-0-1-foreground = ${colors.secondary}
+menu-0-1-exec = gnome-pomodoro --skip
+
+menu-0-0 = " 󰧻 "
+menu-0-0-font = 3
+menu-0-0-foreground = ${colors.secondary}
+menu-0-0-exec = pkill -o gnome-pomodoro
+
+label-open = 
+label-open-font = 3
+label-open-foreground = ${colors.primary}
+
+label-close = " "
+label-close-font = 3
+label-close-foreground = ${colors.primary}
+
+label-separator = 󰞱
+label-seperator-font = 3
+label-seperator-foreground = ${colors.info}
+
+[module/timer]
+type = custom/script
+interval = 1
+exec = "~/.config/polybar/scripts/timer.sh status"
+
+format-font = 3
+format-foreground = ${colors.primary}
+
+format-fail-font = 3
+format-fail-foreground = ${colors.alert}
+
+click-left = "~/.config/polybar/scripts/timer.sh start-pause-resume"
+click-right = "~/.config/polybar/scripts/timer.sh stop"
+
+[module/stopwatch]
+type = custom/script
+interval = 1
+exec = "~/.config/polybar/scripts/stopwatch.sh status"
+
+format-font = 3
+format-foreground = ${colors.primary}
+
+format-fail-font = 3
+format-fail-foreground = ${colors.alert}
+
+click-left = "~/.config/polybar/scripts/stopwatch.sh start-pause-resume"
+click-right = "~/.config/polybar/scripts/stopwatch.sh stop"
+
+[module/keyboard-layout]
+type = custom/script
+interval = 1
+format-foreground = ${colors.primary}
+
+exec = xkblayout-state print %s
+click-left = xkblayout-state set +1
+click-right = setxkbmap -layout us,ir -variant ,pes_keypad -option grp:rctrl_rshift_toggle && xkblayout-state set 0
+
+[module/volume]
+type = custom/script
+interval = 1
+exec = "~/.config/polybar/scripts/volume.sh"
+format-font = 3
+click-left = pulseaudio-ctl up 25
+click-right = pulseaudio-ctl down 25
+click-middle = pulseaudio-ctl mute
+
+; vim:ft=dosini

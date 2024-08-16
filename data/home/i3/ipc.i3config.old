@@ -1,0 +1,15 @@
+# i3 config file (v4)
+
+# ------------
+# # ipc-socket
+# # to allow communication with i3 from other programs
+# ----------------------------------------------------
+#
+# ipc-socket /home/$USER/.i3/i3-ipc.sock
+# made i3 crash btw
+# By default, an IPC socket will be created in
+#  $XDG_RUNTIME_DIR/i3/ipc-socket.%p if the directory is available,
+#  falling back to /tmp/i3-%u.XXXXXX/ipc-socket.%p,
+#  where %u is your UNIX username,
+#  %p is the PID of i3 and XXXXXX is a string of random characters
+#  from the portable filename character set (see mkdtemp(3)).

@@ -1,0 +1,43 @@
+configuration {
+	modes: "drun,run,window,filebrowser,keys";
+	font: "JetBrainsMono Nerd Font Regular 13";
+	location: 0;
+	show-icons: true;
+	terminal: "alacritty";
+	icon-theme: "Yaru-viridian";
+	drun-display-format: "{name} [<span size='x-small' foreground='#888888'><i>{exec}</i></span>]";
+	sort: true;
+	case-sensitive: false;
+	cycle: true;
+	sidebar-mode: true;
+	matching: "fuzzy";
+	window-format: "ws {w}    {c}   {t}";
+	click-to-exit: true;
+	max-history-size: 25;
+	cache-dir: "/home/francis/.config/rofi/cache/" ;
+	window-thumbnail: true;
+	application-fallback-icon: "hicolors" ;
+	pid: "/run/user/1000/rofi.pid";
+
+// custom scripts
+//	modi: "exec:./scripts/exec.sh";
+
+  drun {
+	  scan-desktop: true;
+	  parse-user: true;
+	  parse-system: true;
+  }
+  timeout {
+      action: "kb-cancel";
+      delay:  0;
+  }
+  filebrowser {
+	  directory: "/home/francis/Bedroom";
+      directories-first: true;
+      sorting-method:    "name";
+  }
+  icon {
+      theme: "Yaru-viridian";
+  }
+}
+@theme "/home/francis/.config/rofi/theme.rasi"

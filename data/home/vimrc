@@ -1,0 +1,146 @@
+"" pathogen
+execute pathogen#infect()
+
+"" remove error sound effect
+set noerrorbells
+
+"" theme
+set background=dark
+set termguicolors
+" colorscheme base16-tomorrow-night
+colorscheme Tomorrow-Night
+syntax on
+filetype indent plugin on
+hi Normal guibg=NONE ctermbg=NONE " for transparency
+
+"" syntax for .rc files
+autocmd BufRead,BufNewFile *.rc set filetype=bash
+
+"" syntax for beancount
+autocmd BufRead,BufNewFile *.bc set filetype=beancount
+
+"" encoding and formatting
+set encoding=utf-8
+" set expandtab  " use spaces instead of tabs for indentation
+set smarttab
+set shiftwidth=4 softtabstop=4 tabstop=4  " set the width of a tab to 4 spaces
+
+"" indentation and navigation
+set autoindent
+" set hidden                          " allow switching between buffers without saving
+set ignorecase smartcase            " ignore case in searches unless an uppercase letter is used
+set showmatch                       " show matching brackets and parentheses
+set incsearch hls                   " enable incremental search and highlight search results
+" set relativenumber ls=2             " show line numbers and relative line numbers in the status line
+set nowrap                          " disable line wrapping
+set backspace=indent,eol,start      " allow backspacing over auto-indent, line breaks, and start of insert
+set nu
+set whichwrap+=<,>,[,]				" https://superuser.com/questions/35389/in-vim-how-do-i-make-the-left-and-right-arrow-keys-change-line
+									" allows to move to previous/next line at the beginning/end of a line using left/right arrow key
+
+"" completion and display
+" set completeopt -=preview           " disable preview in completion menu
+" set textwidth=100                   " set the maximum width for automatic line breaking to 100
+set wildmenu                        " enable enhanced command-line completion
+" set noshowmode                      " do not display the current mode
+set cmdheight=1                     " set the command-line height to 1
+
+"" folding, backup, and file handling
+set nofoldenable                    " disable code folding
+set ruler                           " show the cursor position in the status line
+" set autoread                        " auto-read file if it changes outside of vim
+
+"" leader key and mapping
+" let mapleader=","                   " define the leader key as comma
+" map <Space> <leader>                " map the space key to the leader key
+
+"" mouse, file explorer, and visual mode
+set mouse=a                         " enable mouse support
+" nnoremap <leader>5 :Ex<CR>          " open the built-in file explorer
+" nnoremap gp `[v`]
+
+"" backup/persistance settings
+set undodir=$HOME/.vim/undodir undofile
+                                    " enable vim to store undo(s)/redo(s) permenantly
+set backupdir=/tmp
+set directory=/tmp
+set backup
+set writebackup
+set noswapfile
+
+"" better scrolling
+nnoremap <C-j> <C-d>zz
+nnoremap <C-k> <C-u>zz
+
+"" consistent menu navigation
+inoremap <C-j> <C-n>
+inoremap <C-k> <C-p>
+
+"" Mappings to delete a word forward and backward in insert mode
+" These fucking shites didn't work [read in angry scottish]
+"inoremap ^H <C-\><C-n>dB      " backward
+"inoremap <C-Del> <space><esc>ce  " foreward
+
+"" Move highlighted text
+" vnoremap <C-j> :m '>+1<CR>gv=gv
+" vnoremap <C-k> :m '<-2<CR>gv=gv
+
+"" reload all open buffers
+" nnoremap <leader>Ra :tabdo exec "windo e!"
+
+"" map next-previous jumps
+" nnoremap <leader>m <C-o>
+" nnoremap <leader>. <C-i>
+
+"" Keep search matches in the middle of the window.
+" nnoremap n nzzzv
+" nnoremap N Nzzzv
+
+"" Use sane regexes
+" nnoremap <leader>/ /\v
+
+"" Use regular replace
+" nnoremap <leader>s :%s /
+
+"" open vimrc
+nnoremap <leader>v :e  ~/.vimrc<CR>
+nnoremap <leader>V :tabnew  ~/.vimrc<CR>
+
+
+"" Make sure Vim returns to the same line when you reopen a file.
+augroup line_return
+    au!
+    au BufReadPost *
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \     execute 'normal! g`"zvzz' |
+        \ endif
+augroup END
+
+"" clear searches
+nnoremap <leader>hh :call clearmatches()<CR>:noh<CR>
+
+"" clipboard?
+set clipboard=unnamedplus
+set clipboard+=unnamed
+
+"" vim-easy-align
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
+"" GoFmt
+function! GoFmt()
+	let save_view = winsaveview()
+	silent %!gofmt
+	if v:shell_error > 0
+		cexpr getline(1, '$')->map({ idx, val -> val->substitute('<standard input>', expand('%'), '') })
+		silent undo
+		cwindow
+	endif
+	call winrestview(save_view)
+endfunction
+
+command! GoFmt call GoFmt()
+
+augroup go_autocmd
+	autocmd BufWritePre *.go GoFmt
+augroup END

@@ -1,0 +1,26 @@
+program_options:
+  tray: true
+  menu: "nested"
+  automount: false
+  notify: true
+  file_manager: "lf"
+  terminal: "alacritty"
+
+notifications:
+  timeout: 1.5
+  device_mounted: 1.5
+  device_unmounted: 1.5
+  device_added: 1
+  device_removed: 1
+  device_unlocked: -1
+  device_locked: -1
+  job_failed: -1
+
+quickmenu_actions: [mount, unmount, terminal]
+
+# device_config:
+# - id_uuid:
+#   - 5B038F34052F8C99
+#   - 1CFE83ABFE837BB0
+#   - 205CDBF943B5BFC8
+#   automount: true

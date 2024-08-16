@@ -1,0 +1,17 @@
+preview iso .iso {{
+	iso-info -i "$f" -l
+}}
+
+preview targz application/gzip {{
+	atool -l "$f"
+}}
+
+preview markdown .md {{
+	glow -s /home/francis/.config/glow/tomorrow-night.json "$f"
+}}
+
+preview deb .deb {{
+	echo binary
+}}
+
+priority deb

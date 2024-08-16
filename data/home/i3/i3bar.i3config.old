@@ -1,0 +1,69 @@
+# i3 config file (v4)
+
+## -------
+## # i3bar
+## -------
+## deprecated in favor of polybar (look for `autostart applications`)
+#
+## fyi: using multiple `bar { }` will put multiple bars on the screen.
+##  so not just for multiple displays.
+#
+## i3bar colors
+###set $i3bc-bg         #222D31
+#set $i3bc-bg         #12382a72
+#set $i3bc-statusline #F9FAF9
+#set $i3bc-separator  #454947
+##              focused workspace
+#set $i3bc-fw-border  #F9FAF9
+#set $i3bc-fw-bg      #16a085
+#set $i3bc-fw-text    #292F34
+##              active workspace
+#set $i3bc-aw-border  #595B5B
+#set $i3bc-aw-bg      #353836
+#set $i3bc-aw-text    #FDF6E3
+##              inactive workspace
+#set $i3bc-iw-border  #595B5B
+#set $i3bc-iw-bg      #222D31
+#set $i3bc-iw-text    #EEE8D5
+##              binding mode
+#set $i3bc-bm-border  #16a085
+#set $i3bc-bm-bg      #2C2C2C
+#set $i3bc-bm-text    #F9FAF9
+##              urgent workspace
+#set $i3bc-uw-border  #16a085
+#set $i3bc-uw-bg      #FDF6E3
+#set $i3bc-uw-text    #E5201D
+#
+#bar {
+#		i3bar_command i3bar -t
+#		status_command i3status
+#		position bottom
+#		id bar-0
+#
+##		deactivate ws scrolling
+#		bindsym button4 nop
+#		bindsym button5 nop
+#
+#		font pango:JetBrainsMono Nerd Font Regular 11
+#		separator_symbol "/"
+#        strip_workspace_numbers yes
+##		tray_output none
+#
+##				top right bottom left
+#		padding 6px 0px   6px    0px
+#
+#		colors {
+#	        background         $i3bc-bg
+#	        statusline         $i3bc-statusline
+#	        separator          $i3bc-separator
+##	                           border          background  text
+#	        focused_workspace  $i3bc-fw-border $i3bc-fw-bg $i3bc-fw-text
+#	        active_workspace   $i3bc-aw-border $i3bc-aw-bg $i3bc-ac_text
+#	        inactive_workspace $i3bc-iw-border $i3bc-iw-bg $i3bc-iw-text
+#	        binding_mode       $i3bc-bm-border $i3bc-bm-bg $i3bc-bm-text
+#	        urgent_workspace   $i3bc-uw-border $i3bc-uw-bg $i3bc-uw-text
+#		}
+#}
+#
+## hide/ungide i3status bar
+#bindsym $mod+m bar mode toggle

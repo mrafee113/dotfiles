@@ -1,0 +1,56 @@
+#
+# Should you change your keyboard layout some time, delete
+# this file and re-run i3-config-wizard(1).
+#
+
+# i3 config file (v4)
+# Please see https://i3wm.org/docs/userguide.html for a complete reference!
+
+# super key for i3 modifier
+set $mod Mod4
+
+# ---------
+# # i3 font
+# ---------
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+# arch pkg ttf-jetbrains-mono-nerd
+font pango:JetBrainsMono Nerd Font Regular 11
+
+# -----------------
+# # i3 config files
+# -----------------
+
+# these files are presumed to be in the same directory as the original config file
+include keyboard.i3config
+include audio.i3config
+# include brightness.i3config
+include apps.keybindings.i3config
+include restarter-quitter.mode.i3config
+include dunstctl.mode.i3config
+# include app-launcher.mode.i3config
+include for-window-settings.i3config
+include autostart-apps.i3config
+include rofi.mode.i3config
+include i3-windows.i3config
+include i3exit.mode.i3config
+# include i3bar.i3config
+include mouse.keybindings.i3config
+# include ipc.i3config
+include colors.i3config
+include todotxt.mode.i3config
+include files.mode.i3config
+include cheat.mode.i3config
+include manuals.mode.i3config
+include markdown.mode.i3config
+
+# ------------
+# # i3 control
+# ------------
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"

@@ -1,0 +1,12 @@
+# i3 config file (v4)
+
+# ---------------
+# # markdown mode
+# ---------------
+set $mode_markdown markdown: (v)iew
+bindsym $mod+Ctrl+m mode "$mode_markdown"
+mode "$mode_markdown" {
+	bindsym v      exec --no-startup-id ci3-markdown-manager.sh view, mode "default"
+	bindsym Return													  mode "default"
+	bindsym Escape													  mode "default"
+}

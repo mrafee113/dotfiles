@@ -1,0 +1,42 @@
+conky.config = {
+	alignment = 'bottom_right',
+	background = true,
+	color2 = '5D7B86',
+	cpu_avg_samples = 2,
+	default_color = 'F9FAF9',
+	double_buffer = true,
+	font = 'Bitstream Vera Sans:size=8',
+	draw_shades = false,
+	gap_x = 25,
+	gap_y = 45,
+	minimum_width = 200,
+	no_buffers = true,
+	own_window = true,
+	own_window_type = 'override',
+	own_window_transparent = true,
+	update_interval = 2.0,
+	use_xft = true,
+}
+conky.text = [[
+${color2}ranger: ${goto 130}${color}mod+F3
+${color2}nemo: ${goto 130}${color}mod+Shift+F3
+${color2}screenshot: ${goto 130}${color}PrintScr
+${color2}screenshot full: ${goto 130}${color}Shift+PrintScr
+${color2}gcalculator: ${goto 130}${color}Ctrl+Enter
+${color2}qalculator: ${goto 130}${color}Ctrl+Shift+q
+
+${color2}move to scratchpad: ${goto 130}${color}mod+Shift+-
+${color2}scratchpad toggle: ${goto 130}${color}mod+-
+${color2}resize mode: ${goto 130}${color}mod+r
+${color2}gaps mode: ${goto 130}${color}mod+Shift+g
+
+${color2}visual kill: ${goto 130}${color}mod+Ctrl+x
+${color2}click kill: ${goto 130}${color}mod+[mouse-middle]
+${color2}i3-exit: ${goto 130}${color}mod+Shift+e
+
+${color2}mark window: ${goto 130}${color}mod+Shift+m
+${color2}goto mark: ${goto 130}${color}mod+g
+${color2}unmark: ${goto 130}${color}mod+u
+${color2}unmark all: ${goto 130}${color}mod+Shift+u
+${voffset 1}
+]]

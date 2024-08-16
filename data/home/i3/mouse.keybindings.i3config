@@ -1,0 +1,10 @@
+# i3 config file (v4)
+
+# --------------------
+# # mouse key bindings
+# --------------------
+
+# mod+mid-click on the window (except titlebar) kills window
+bindsym --whole-window --exclude-titlebar $mod+button2 kill
+# mod+r-click   on the window                   toggles floating mode
+bindsym --whole-window --exclude-titlebar $mod+button3 floating toggle

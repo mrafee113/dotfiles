@@ -1,0 +1,9 @@
+dir=${HOME}/Bedroom/Downloads
+save-session=${HOME}/.aria2.session
+disk-cache=64M
+file-allocation=falloc
+max-connection-per-server=16
+max-tries=5
+max-concurrent-downloads=1
+always-resume=true
+auto-file-renaming=false

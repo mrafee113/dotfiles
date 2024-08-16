@@ -1,0 +1,10 @@
+#
+# ~/.xprofile
+#
+# for lightdm
+
+if [ -d /home/francis/.zim/modules/terminal ]; then
+	source /home/francis/.zim/modules/terminal/src.zsh env
+elif [ -d /home/francis/Studio/Terminal ]; then
+	source /home/francis/Studio/Terminal/src.zsh env
+fi

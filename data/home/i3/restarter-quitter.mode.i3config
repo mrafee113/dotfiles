@@ -1,0 +1,30 @@
+# i3 config file (v4)
+
+# --------------------
+# # mode: i3 restarter
+# --------------------
+
+set $mode_restarter restart: (c)onky, (d)unst, (p)icom, (P)olybar, (h)iddify, (n)ekoray, mode (q)uit
+set $mode_quitter quit: (c)onky, (d)unst, (p)icom, (P)olybar, (h)iddify, (n)ekoray
+bindsym $mod+Ctrl+r mode "$mode_restarter"
+mode "$mode_restarter" {
+	bindsym p       exec --no-startup-id ci3-restarter.sh --app picom,   mode "default"
+	bindsym Shift+p exec --no-startup-id ci3-restarter.sh --app polybar, mode "default"
+	bindsym d	    exec --no-startup-id ci3-restarter.sh --app dunst,   mode "default"
+	bindsym c       exec --no-startup-id ci3-restarter.sh --app conky,   mode "default"
+	bindsym h		exec --no-startup-id ci3-restarter.sh --app hiddify, mode "default"
+	bindsym n		exec --no-startup-id ci3-restarter.sh --app nekoray, mode "default"
+	bindsym q															 mode "$mode_quitter"
+	bindsym Return													     mode "default"
+    bindsym Escape													     mode "default"
+}
+mode "$mode_quitter" {
+	bindsym p       exec --no-startup-id ci3-restarter.sh --cmd quit --app picom,   mode "default"
+	bindsym Shift+p exec --no-startup-id ci3-restarter.sh --cmd quit --app polybar, mode "default"
+	bindsym d	    exec --no-startup-id ci3-restarter.sh --cmd quit --app dunst,   mode "default"
+	bindsym c       exec --no-startup-id ci3-restarter.sh --cmd quit --app conky,   mode "default"
+	bindsym h		exec --no-startup-id ci3-restarter.sh --cmd quit --app hiddify, mode "default"
+	bindsym n		exec --no-startup-id ci3-restarter.sh --cmd quit --app nekoray, mode "default"
+	bindsym Return																    mode "default"
+    bindsym Escape																	mode "default"
+}

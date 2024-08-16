@@ -1,0 +1,25 @@
+--no-follow-symlinks
+--enable-shell
+--enable-delete
+--confirm-delete
+--enable-refresh
+--no-si
+
+# a
+--disk-usage
+
+# e
+--show-hidden
+
+# c
+--show-itemcount
+
+# m
+--show-mtime
+
+# g
+--show-graph
+--show-percent
+
+--group-directories-first
+--color dark

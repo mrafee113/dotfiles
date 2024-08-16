@@ -1,0 +1,33 @@
+# i3 config file (v4)
+
+# ------------------------
+# # autostart applications
+# ------------------------
+
+# Start XDG autostart .desktop files using dex. See also
+# https://wiki.archlinux.org/index.php/XDG_Autostart
+exec --no-startup-id dex --autostart --environment i3
+
+exec --no-startup-id flameshot
+
+# NetworkManager is the most popular way to manage wireless networks on Linux,
+# and nm-applet is a desktop environment-independent system tray GUI for it.
+exec --no-startup-id nm-applet
+
+exec --no-startup-id /usr/lib/plkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id nitrogen --restore; sleep 1; picom -b
+# exec --no-startup-id manjaro-hello
+exec --no-startup-id xfce4-power-manager
+# exec --no-startup-id pamac-tray
+exec --no-startup-id clipit
+exec --no-startup-id blueman-applet
+# exec --no-startup-id sbxkb
+exec_always --no-startup-id $HOME/.config/conky/launch.sh
+exec --no-startup-id xautolock -time 20 -locker blurlock
+exec_always --no-startup-id ff-theme-util
+exec_always --no-startup-id fix_xcursor
+exec --no-startup-id nekoray
+exec --no-startup-id hiddify
+exec --no-startup-id udiskie
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec --no-startup-id syncthing
