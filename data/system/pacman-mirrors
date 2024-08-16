@@ -1,0 +1,21 @@
+##
+## Manjaro Linux custom mirrorlist
+## Generated on 2024-08-08 12:14
+##
+## Please use 'pacman-mirrors -id' To reset custom mirrorlist
+## Please use 'pacman-mirrors -c all' To reset custom mirrorlist
+## To remove custom config run  'pacman-mirrors -c all'
+##
+
+## Country : Netherlands
+Server = http://ftp.snt.utwente.nl/pub/linux/manjaro/stable/$repo/$arch
+
+## Country : Netherlands
+Server = http://manjaro.mirror.wearetriple.com/stable/$repo/$arch
+
+## Country : Netherlands
+Server = http://mirror.bouwhuis.network/manjaro/stable/$repo/$arch
+
+## Country : Netherlands
+Server = http://manjaro.mirrors.lavatech.top/stable/$repo/$arch
+

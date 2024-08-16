@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=HakuNeko Desktop
+GenericName=Manga Downloader
+Exec=/usr/lib/hakuneko-desktop/hakuneko --no-sandbox
+Icon=hakuneko-desktop
+Categories=Network;FileTransfer;
