@@ -7,6 +7,30 @@
 [submodule "src/dotbot-link-extra"]
 	path = src/dotbot-link-extra
 	url = https://github.com/mrafee113/dotbot-link-extra
+[submodule "data/home/vim/bundle/base16"]
+	path = data/home/vim/bundle/base16
+	url = https://github.com/chriskempson/base16-vim
+[submodule "data/home/vim/bundle/rasi.vim"]
+	path = data/home/vim/bundle/rasi.vim
+	url = https://github.com/Fymyte/rasi.vim
+[submodule "data/home/vim/bundle/tree-sitter-rasi"]
+	path = data/home/vim/bundle/tree-sitter-rasi
+	url = https://github.com/Fymyte/tree-sitter-rasi
+[submodule "data/home/vim/bundle/vim-beancount"]
+	path = data/home/vim/bundle/vim-beancount
+	url = https://github.com/nathangrigg/vim-beancount
+[submodule "data/home/vim/bundle/vim-css-color"]
+	path = data/home/vim/bundle/vim-css-color
+	url = https://github.com/ap/vim-css-color
+[submodule "data/home/vim/bundle/vim-easy-align"]
+	path = data/home/vim/bundle/vim-easy-align
+	url = https://github.com/junegunn/vim-easy-align
+[submodule "data/home/alacritty/themes"]
+	path = data/home/alacritty/themes
+	url = https://github.com/alacritty/alacritty-theme
+[submodule "data/home/cheat/cheatsheets"]
+	path = data/home/cheat/cheatsheets
+	url = https://github.com/mrafee113/cheats
 [submodule "src/dotbot-sudo"]
 	path = src/dotbot-sudo
-	url = https://github.com/DrDynamic/dotbot-sudo.git
+	url = https://github.com/mrafee113/dotbot-sudo
