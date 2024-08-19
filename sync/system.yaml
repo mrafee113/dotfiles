@@ -14,7 +14,9 @@
 - sudo:
     - elink:
         /etc/lightdm/lightdm.conf: data/system/lightdm/config
-        /etc/lightdm/slick-greeter.conf: data/system/lightdm/slick-greeter
+        /etc/lightdm/slick-greeter.conf:
+          path: data/system/lightdm/slick-greeter
+          copy: true
 
         /etc/systemd/sleep.conf.d/hibernatemode.conf: data/system/systemd/sleep.conf.d/hibernatemode.conf
         /etc/systemd/system/nvidia-suspend.service.d/override.conf: data/system/systemd/nvidia-suspend.service.d/override.conf
@@ -31,7 +33,9 @@
         /etc/default/grub: data/system/grub
         /etc/crontab: data/system/crontab
         /etc/pacman.d/mirrorlist: data/system/pacman-mirrors
-        /etc/fstab: data/system/fstab
+        /etc/fstab:
+          path: data/system/fstab
+          copy: true
         /usr/share/applications/hakuneko-desktop.desktop: data/system/desktop-files/hakuneko.desktop
         /etc/tsocks.conf: data/system/tsocks
         /etc/default/keyboard: data/system/keyboard
