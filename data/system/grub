@@ -3,7 +3,7 @@ GRUB_DEFAULT=saved
 GRUB_TIMEOUT=5
 GRUB_TIMEOUT_STYLE=menu
 GRUB_DISTRIBUTOR="Manjaro"
-GRUB_CMDLINE_LINUX_DEFAULT="udev.log-priority=debug rcutree.gp_init_delay=1 no_console_suspend nowatchdog nmi_watchdog=0 nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+GRUB_CMDLINE_LINUX_DEFAULT="udev.log-priority=debug rcutree.gp_init_delay=1 no_console_suspend nowatchdog nmi_watchdog=0 nvidia.NVreg_PreserveVideoMemoryAllocations=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1"
 GRUB_CMDLINE_LINUX=""
 
 # If you want to enable the save default function, uncomment the following
