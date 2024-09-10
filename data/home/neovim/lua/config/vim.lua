@@ -29,5 +29,5 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 vim.opt.errorbells = false
 
 -- open vimrc
-vim.api.nvim_set_keymap("n", "<leader>v", ":e ~/.vimrc<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>V", ":tabnew ~/.vimrc<CR>", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<leader>v", ":e ~/.vimrc<CR>", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<leader>V", ":tabnew ~/.vimrc<CR>", { noremap = true, silent = true })

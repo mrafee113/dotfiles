@@ -37,6 +37,13 @@ require("mason-lspconfig").setup({
 			-- by the server configuration above. Useful when disabling
 			-- certain features of an LSP (for example, turning off formatting for tsserver)
 			server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+			-- Check if the server is Pyright
+			if server_name == "pyright" then
+				-- Debugging output to ensure settings are applied correctly
+				-- vim.notify("Setting up Pyright with the following settings:", vim.log.levels.INFO)
+				-- vim.notify(vim.inspect(server), vim.log.levels.INFO)
+				server.capabilities.textDocument.publishDiagnostics = false
+			end
 			require("lspconfig")[server_name].setup(server)
 		end,
 	},

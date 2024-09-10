@@ -11,11 +11,11 @@ return {
 	clangd = {},
 	gopls = require("plugins.lsp.servers.gopls"),
 	bashls = {},
-	pyright = require("plugins.lsp.servers.pyright"),
-	ruff = require("plugins.lsp.servers.ruff"),
+	-- pyright = require("plugins.lsp.servers.pyright"),
+	pylsp = require("plugins.lsp.servers.pylsp"),
+	-- ruff = require("plugins.lsp.servers.ruff"),
 	lua_ls = require("plugins.lsp.servers.lua_ls"),
 	beancount = require("plugins.lsp.servers.beancount"),
 	-- sqls = {},
-	-- pylsp = require("plugins.lsp.servers.pylsp"),
 	-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 }

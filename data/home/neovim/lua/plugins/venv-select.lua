@@ -9,9 +9,23 @@ return {
 	lazy = false,
 	branch = "regexp", -- This is the regexp branch, use this for the new version
 	config = function()
-		require("venv-selector").setup()
+		local function shorter_name(filename)
+			return filename:gsub(os.getenv("HOME") .. "/.venvs/", ""):gsub("/bin/python", "")
+		end
+		require("venv-selector").setup({
+			settings = {
+				search = {
+					cwd = false,
+					workspace = false,
+					venvs = {
+						command = "find ~/.venvs -type f,l -name '*python' ! -name '*ipython'",
+						on_telescope_result_callback = shorter_name,
+					},
+				},
+			},
+		})
 	end,
 	keys = {
-		{ ",v", "<cmd>VenvSelect<cr>" },
+		{ "<leader>v", "<cmd>VenvSelect<cr>" },
 	},
 }

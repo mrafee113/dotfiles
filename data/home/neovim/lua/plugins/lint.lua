@@ -1,7 +1,7 @@
 -- Linting
 return {
 	"mfussenegger/nvim-lint",
-	event = { "BufReadPre", "BufNewFile" },
+	event = { "BufReadPre", "BufNewFile", "InsertLeave" },
 	-- event = { "BufWritePost", "BufReadPost", "InsertLeave" },
 	config = function()
 		local lint = require("lint")
@@ -16,7 +16,7 @@ return {
 			rst = { vale = "vale" },
 			go = { golangcilint = "golangci-lint" },
 			json = { jsonlint = "jsonlint" },
-			-- python = { ruff = "ruff" },
+			python = { ruff = "ruff" },
 			yaml = { yamllint = "yamllint" },
 		}
 

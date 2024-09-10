@@ -7,6 +7,7 @@ return {
 	-- lsp plugins
 	require("plugins.lazydev"),
 	{ "Bilal2453/luvit-meta", lazy = true },
+	{ "microsoft/python-type-stubs" }, -- for pyright
 	require("plugins.lsp.init"),
 	require("plugins.conform"),
 	require("plugins.cmp"),
@@ -26,7 +27,8 @@ return {
 	require("plugins.indent-blankline"),
 	require("plugins.lint"),
 	require("plugins.autopairs"),
-	require("plugins.neo-tree"),
+	-- require("plugins.neo-tree"),
+	require("plugins.nvim-tree"),
 	require("plugins.trouble"),
 	{ "numToStr/Comment.nvim" },
 	require("plugins.lualine"),
