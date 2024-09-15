@@ -35,9 +35,8 @@
     "rules": [
       {
         "domain": [
-          "sv9-h3.tsteam999.top",
-          "sv9-h2.tsteam999.top",
-          "sv9-h1.tsteam999.top"
+          "sv2-h3.tsteam3.top",
+          "sv2-h2.tsteam3.top"
         ],
         "server": "dns-direct"
       },
@@ -50,10 +49,10 @@
     "final": "dns-remote",
     "static_ips": {
       "sky.rethinkdns.com": [
-        "188.114.97.3",
         "188.114.96.3",
-        "2a06:98c1:3121::3",
+        "188.114.97.3",
         "2a06:98c1:3120::3",
+        "2a06:98c1:3121::3",
         "104.17.148.22",
         "104.17.147.22",
         "188.114.97.3",
@@ -87,9 +86,10 @@
       "tag": "select",
       "outbounds": [
         "auto",
-        "همه-نت-ها reality grpc direct vless § 34594 3",
-        "همه-نت-ها reality grpc direct vless § 34594 4",
-        "همه نت ها reality grpc direct vless § 34594 6"
+        "همه_نت_ها reality grpc direct vless § 0",
+        "همه_نت_ها reality grpc direct vless § 1",
+        "همه-نت-ها reality grpc direct vless § 2",
+        "همه-نت-ها reality grpc direct vless § 3"
       ],
       "default": "auto"
     },
@@ -97,9 +97,10 @@
       "type": "urltest",
       "tag": "auto",
       "outbounds": [
-        "همه-نت-ها reality grpc direct vless § 34594 3",
-        "همه-نت-ها reality grpc direct vless § 34594 4",
-        "همه نت ها reality grpc direct vless § 34594 6"
+        "همه_نت_ها reality grpc direct vless § 0",
+        "همه_نت_ها reality grpc direct vless § 1",
+        "همه-نت-ها reality grpc direct vless § 2",
+        "همه-نت-ها reality grpc direct vless § 3"
       ],
       "url": "http://connectivitycheck.gstatic.com/generate_204",
       "interval": "10m0s",
@@ -107,36 +108,10 @@
     },
     {
       "type": "vless",
-      "tag": "همه-نت-ها reality grpc direct vless § 34594 3",
-      "server": "sv9-h1.tsteam999.top",
-      "server_port": 34594,
-      "uuid": "bca7b458-b298-4015-aa07-967423604bf7",
-      "tls": {
-        "enabled": true,
-        "server_name": "www.tumblr.com",
-        "alpn": "http/1.1",
-        "utls": {
-          "enabled": true,
-          "fingerprint": "chrome"
-        },
-        "reality": {
-          "enabled": true,
-          "public_key": "TuyjM3l5QcOCTxN29YacdcKnuQSXVT-fxJVGqfYznX4",
-          "short_id": "2b6ea8606770"
-        }
-      },
-      "transport": {
-        "type": "grpc",
-        "service_name": "lvkoHkCfjfc01F8tE42uEYRdMfGo2"
-      },
-      "packet_encoding": "xudp"
-    },
-    {
-      "type": "vless",
-      "tag": "همه-نت-ها reality grpc direct vless § 34594 4",
-      "server": "sv9-h3.tsteam999.top",
-      "server_port": 34594,
-      "uuid": "bca7b458-b298-4015-aa07-967423604bf7",
+      "tag": "همه_نت_ها reality grpc direct vless § 0",
+      "server": "sv2-h3.tsteam3.top",
+      "server_port": 443,
+      "uuid": "a87aaec9-c2e4-4fe4-bae4-3e929acc35d7",
       "tls": {
         "enabled": true,
         "server_name": "www.speedtest.net",
@@ -147,22 +122,52 @@
         },
         "reality": {
           "enabled": true,
-          "public_key": "TuyjM3l5QcOCTxN29YacdcKnuQSXVT-fxJVGqfYznX4",
-          "short_id": "2b6ea8606770"
+          "public_key": "w7Wp8qsbUrwpabs5Gs0Xo3_r9iu2bZfXTsh9ULfb_nw",
+          "short_id": "01657e"
         }
       },
       "transport": {
         "type": "grpc",
-        "service_name": "lvkoHkCfjfc01F8tE42uEYRdMfGo2"
+        "service_name": "NzONHvjfFayNAh",
+        "idle_timeout": "15s",
+        "ping_timeout": "15s"
       },
-      "packet_encoding": "xudp"
+      "packet_encoding": ""
     },
     {
       "type": "vless",
-      "tag": "همه نت ها reality grpc direct vless § 34594 6",
-      "server": "sv9-h2.tsteam999.top",
-      "server_port": 34594,
-      "uuid": "bca7b458-b298-4015-aa07-967423604bf7",
+      "tag": "همه_نت_ها reality grpc direct vless § 1",
+      "server": "sv2-h3.tsteam3.top",
+      "server_port": 1443,
+      "uuid": "a87aaec9-c2e4-4fe4-bae4-3e929acc35d7",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.speedtest.net",
+        "alpn": "http/1.1",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "w7Wp8qsbUrwpabs5Gs0Xo3_r9iu2bZfXTsh9ULfb_nw",
+          "short_id": "01657e"
+        }
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": "NzONHvjfFayNAh",
+        "idle_timeout": "15s",
+        "ping_timeout": "15s"
+      },
+      "packet_encoding": ""
+    },
+    {
+      "type": "vless",
+      "tag": "همه-نت-ها reality grpc direct vless § 2",
+      "server": "sv2-h2.tsteam3.top",
+      "server_port": 443,
+      "uuid": "a87aaec9-c2e4-4fe4-bae4-3e929acc35d7",
       "tls": {
         "enabled": true,
         "server_name": "www.who.int",
@@ -173,15 +178,45 @@
         },
         "reality": {
           "enabled": true,
-          "public_key": "TuyjM3l5QcOCTxN29YacdcKnuQSXVT-fxJVGqfYznX4",
-          "short_id": "2b6ea8606770"
+          "public_key": "w7Wp8qsbUrwpabs5Gs0Xo3_r9iu2bZfXTsh9ULfb_nw",
+          "short_id": "01657e"
         }
       },
       "transport": {
         "type": "grpc",
-        "service_name": "lvkoHkCfjfc01F8tE42uEYRdMfGo2"
+        "service_name": "NzONHvjfFayNAh",
+        "idle_timeout": "15s",
+        "ping_timeout": "15s"
       },
-      "packet_encoding": "xudp"
+      "packet_encoding": ""
+    },
+    {
+      "type": "vless",
+      "tag": "همه-نت-ها reality grpc direct vless § 3",
+      "server": "sv2-h2.tsteam3.top",
+      "server_port": 1443,
+      "uuid": "a87aaec9-c2e4-4fe4-bae4-3e929acc35d7",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.who.int",
+        "alpn": "http/1.1",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "w7Wp8qsbUrwpabs5Gs0Xo3_r9iu2bZfXTsh9ULfb_nw",
+          "short_id": "01657e"
+        }
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": "NzONHvjfFayNAh",
+        "idle_timeout": "15s",
+        "ping_timeout": "15s"
+      },
+      "packet_encoding": ""
     },
     {
       "type": "dns",
@@ -262,7 +297,7 @@
     },
     "clash_api": {
       "external_controller": "127.0.0.1:6756",
-      "secret": "lAoynT3yTR6Tjcz7"
+      "secret": "30u7vZetqK-Mmfje"
     }
   }
 }

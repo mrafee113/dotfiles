@@ -1,7 +1,7 @@
 indent-width = 4
 
 [format]
-indent-style = "tab"
+indent-style = "space"
 
 [lint.isort]
 length-sort = true

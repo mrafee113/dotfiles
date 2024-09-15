@@ -8,6 +8,7 @@
       backup: true
       backup-dir: $BACKUPS_DIR/dotfiles-junkyard
       replace: true
+      copy: true
     sudo:
       -E: true
 

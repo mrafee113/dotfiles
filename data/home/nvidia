@@ -2,7 +2,7 @@
 # /home/francis/.nvidia-settings-rc
 #
 # Configuration file for nvidia-settings - the NVIDIA Settings utility
-# Generated on Sun Jun  9 18:51:33 2024
+# Generated on Wed Aug 21 12:20:16 2024
 #
 
 # ConfigProperties:
@@ -12,9 +12,9 @@ DisplayStatusBar = Yes
 SliderTextEntries = Yes
 IncludeDisplayNameInConfigFile = No
 UpdateRulesOnProfileNameChange = Yes
-Timer = PowerMizer_Monitor_(GPU_0),Yes,1000
-Timer = Thermal_Monitor_(GPU_0),Yes,1000
 Timer = Memory_Used_(GPU_0),Yes,3000
+Timer = Thermal_Monitor_(GPU_0),Yes,1000
+Timer = PowerMizer_Monitor_(GPU_0),Yes,1000
 
 # Attributes:
 
@@ -33,6 +33,7 @@ Timer = Memory_Used_(GPU_0),Yes,3000
 0/ShowGSYNCVisualIndicator=0
 0/ShowVRRVisualIndicator=0
 0/ShowGraphicsVisualIndicator=0
+0/XVideoSyncToDisplayID=DP-2
 [DPY:DP-0]/Dithering=0
 [DPY:DP-0]/DitheringMode=0
 [DPY:DP-0]/DitheringDepth=0

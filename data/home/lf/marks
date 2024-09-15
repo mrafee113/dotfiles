@@ -1,8 +1,10 @@
-t:/tmp
-r:/
-h:/home/francis
-d:/home/francis/Bedroom/Downloads
 D:/home/francis/Bedroom/Documents
-p:/home/francis/Studio/Projects
-s:/home/francis/Studio/Scripts
 T:/home/francis/Studio/Terminal
+a:/home/francis/Temporary/awesome-dotfiles/jdhao-nvim
+d:/home/francis/Bedroom/Downloads
+f:/home/francis/Studio/Dotfiles
+h:/home/francis
+p:/home/francis/Studio/Projects
+r:/
+s:/home/francis/Studio/Scripts
+t:/tmp
