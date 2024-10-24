@@ -1,0 +1,28 @@
+# deb cdrom:[Debian GNU/Linux 12.1.0 _Bookworm_ - Official amd64 NETINST with firmware 20230722-10:48]/ bookworm main non-free-firmware
+
+deb http://debian.snt.utwente.nl/debian/ bookworm main non-free-firmware contrib non-free
+deb-src http://debian.snt.utwente.nl/debian/ bookworm main non-free-firmware contrib non-free
+
+deb http://debian.snt.utwente.nl/debian/ bookworm-backports main contrib non-free
+deb-src http://debian.snt.utwente.nl/debian/ bookworm-backports main contrib non-free
+
+# Line commented out by installer because it failed to verify:
+deb http://debian.snt.utwente.nl/debian-security/ bookworm-security main non-free-firmware
+# Line commented out by installer because it failed to verify:
+deb-src http://debian.snt.utwente.nl/debian-security/ bookworm-security main non-free-firmware
+
+# bookworm-updates, to get updates before a point release is made;
+# see https://www.debian.org/doc/manuals/debian-reference/ch02.en.html#_updates_and_backports
+deb http://debian.snt.utwente.nl/debian/ bookworm-updates main non-free-firmware contrib non-free
+deb-src http://debian.snt.utwente.nl/debian/ bookworm-updates main non-free-firmware contrib non-free
+
+# This system was installed using small removable media
+# (e.g. netinst, live or single CD). The matching "deb cdrom"
+# entries were disabled at the end of the installation process.
+# For information about how to configure apt package sources,
+# see the sources.list(5) manual.
+
+## apt-pinning for beginners https://jaqque.sbih.org/kplug/apt-pinning.html
+deb http://debian.snt.utwente.nl/debian stable main non-free contrib
+deb http://debian.snt.utwente.nl/debian testing main non-free contrib
+deb http://debian.snt.utwente.nl/debian unstable main non-free contrib

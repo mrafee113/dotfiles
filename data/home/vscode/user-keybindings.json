@@ -1,0 +1,113 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "key": "alt+h",
+        "command": "cursorLeft",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "alt+j",
+        "command": "cursorDown",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "alt+k",
+        "command": "cursorUp",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "alt+l",
+        "command": "cursorRight",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "alt+d",
+        "command": "deleteLeft",
+        "when": "textInputFocus && !editorReadonly"
+    },
+    {
+        "key": "alt+shift+d",
+        "command": "deleteRight",
+        "when": "textInputFocus && !editorReadonly"
+    },
+    {
+        "key": "alt+0",
+        "command": "cursorHome",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "alt+shift+4",
+        "command": "cursorEnd",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "alt+b",
+        "command": "cursorWordLeft",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "alt+shift+b",
+        "command": "cursorWordLeftSelect",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "alt+w",
+        "command": "cursorWordRight",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "alt+shift+w",
+        "command": "cursorWordRightSelect",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "alt+o",
+        "command": "editor.action.insertLineAfter",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "alt+shift+o",
+        "command": "editor.action.insertLineBefore",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "alt+shift+9",
+        "command": "cursorWordLeft",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "alt+shift+0",
+        "command": "cursorWordRight",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "alt+shift+[",
+        "command": "cursorTop",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "alt+shift+]",
+        "command": "cursorBottom",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "alt+u",
+        "command": "undo",
+        "when": "textInputFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+alt+r",
+        "command": "redo",
+        "when": "textInputFocus && !editorReadonly"
+    },
+    {
+        "key": "alt+p",
+        "command": "editor.action.clipboardPasteAction",
+        "when": "textInputFocus && !editorReadonly"
+    },
+    {
+        "key": "alt+shift+p",
+        "command": "editor.action.clipboardPasteAction",
+        "when": "textInputFocus && !editorReadonly"
+    }
+]

@@ -53,7 +53,20 @@
     $HOME/.config/pavucontrol.ini: data/home/pavucontrol.ini
     $HOME/.config/picom.conf: data/home/picom
     $HOME/.config/starship.toml: data/home/starship.toml
+    ##debian: $HOME/.config/nautilus/search-metadata: data/home/nautilus-search-metadata
+    #$HOME/.config/neofetch/config.conf: data/home/neofetch
+    #$HOME/.docker/config.json: data/home/docker.json
     $HOME/.icons/default/index.theme: data/home/icons-index.theme
+
+    ##debian: $HOME/.config/ulauncher/extensions.json: data/home/ulauncher/extensions.json
+    ##debian: $HOME/.config/ulauncher/settings.json: data/home/ulauncher/settings.json
+    ##debian: $HOME/.config/ulauncher/shortcuts.json: data/home/ulauncher/shortcuts.json
+
+    $HOME/.vscode/extensions.json: data/home/vscode/extensions.json
+    $HOME/.config/Code/Preferences: data/home/vscode/preferences
+    $HOME/.config/Code/User/globalStorage/storage.json: data/home/vscode/user-globalstorage.json
+    $HOME/.config/Code/User/settings.json: data/home/vscode/user-settings.json
+    $HOME/.config/Code/User/keybindings.json: data/home/vscode/user-keybindings.json
 
     $HOME/.config/nekoray/config/groups/nekoray.json: data/home/nekoray/config.json
     $HOME/.config/nekoray/config/routes/Default: data/home/nekoray/routes.json

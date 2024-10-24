@@ -1,0 +1,306 @@
+{
+  "editor.formatOnSave": true,
+  "workbench.colorTheme": "JetBrains Dark (New UI)",
+  "python.defaultInterpreterPath": "",
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  },
+  // "vim.leader": " ",
+  // "vim.hlsearch": true,
+  // "vim.ignorecase": true,
+  // "vim.smartcase": true,
+  // "vim.showmatch": true,
+  "vim.useSystemClipboard": true,
+  "editor.lineNumbers": "relative",
+  "python.testing.pytestEnabled": true,
+  "window.titleBarStyle": "custom",
+  "window.customMenuBarAltFocus": false,
+  "window.enableMenuBarMnemonics": false,
+  "window.menuBarVisibility": "hidden",
+  "vim.leader": " ",
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "<leader>",
+        "n"
+      ],
+      "commands": [
+        ":set relativenumber!"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "h",
+        "h"
+      ],
+      "commands": [
+        ":noh",
+        ":call clearmatches()"
+      ]
+    },
+    {
+      "before": [
+        "<C-j>"
+      ],
+      "after": [
+        "<C-d>",
+        "z",
+        "z"
+      ]
+    },
+    {
+      "before": [
+        "<C-k>"
+      ],
+      "after": [
+        "<C-u>",
+        "z",
+        "z"
+      ]
+    }
+  ],
+  "vim.insertModeKeyBindings": [
+    {
+      "before": [
+        "<A-h>"
+      ],
+      "after": [
+        "<Left>"
+      ]
+    },
+    {
+      "before": [
+        "<A-j>"
+      ],
+      "after": [
+        "<Down>"
+      ]
+    },
+    {
+      "before": [
+        "<A-k>"
+      ],
+      "after": [
+        "<Up>"
+      ]
+    },
+    {
+      "before": [
+        "<A-l>"
+      ],
+      "after": [
+        "<Right>"
+      ]
+    },
+    {
+      "before": [
+        "<A-d>"
+      ],
+      "after": [
+        "<C-h>"
+      ]
+    },
+    {
+      "before": [
+        "<A-S-d>"
+      ],
+      "after": [
+        "<Del>"
+      ]
+    },
+    {
+      "before": [
+        "<A-0>"
+      ],
+      "after": [
+        "<C-o>",
+        "g",
+        "0"
+      ]
+    },
+    {
+      "before": [
+        "<A-S-$>"
+      ],
+      "after": [
+        "<C-o>",
+        "g",
+        "$"
+      ]
+    },
+    {
+      "before": [
+        "<A-b>"
+      ],
+      "after": [
+        "<C-left>"
+      ]
+    },
+    {
+      "before": [
+        "<A-S-b>"
+      ],
+      "after": [
+        "<C-o>",
+        "B"
+      ]
+    },
+    {
+      "before": [
+        "<A-w>"
+      ],
+      "after": [
+        "<C-right>"
+      ]
+    },
+    {
+      "before": [
+        "<A-S-w>"
+      ],
+      "after": [
+        "<C-o>",
+        "W"
+      ]
+    },
+    {
+      "before": [
+        "<A-o>"
+      ],
+      "after": [
+        "<C-o>",
+        "o"
+      ]
+    },
+    {
+      "before": [
+        "<A-S-o>"
+      ],
+      "after": [
+        "<C-o>",
+        "O"
+      ]
+    },
+    {
+      "before": [
+        "<A-S-(>"
+      ],
+      "after": [
+        "<C-o>",
+        "("
+      ]
+    },
+    {
+      "before": [
+        "<A-S-)>"
+      ],
+      "after": [
+        "<C-o>",
+        ")"
+      ]
+    },
+    {
+      "before": [
+        "<A-S-{>"
+      ],
+      "after": [
+        "<C-o>",
+        "{"
+      ]
+    },
+    {
+      "before": [
+        "<A-S-}>"
+      ],
+      "after": [
+        "<C-o>",
+        "}"
+      ]
+    },
+    {
+      "before": [
+        "<A-u>"
+      ],
+      "after": [
+        "<C-o>",
+        "u"
+      ]
+    },
+    {
+      "before": [
+        "<C-A-r>"
+      ],
+      "after": [
+        "<C-o>",
+        "<C-r>"
+      ]
+    },
+    {
+      "before": [
+        "<A-p>"
+      ],
+      "after": [
+        "<C-o>",
+        "p"
+      ]
+    },
+    {
+      "before": [
+        "<A-S-p>"
+      ],
+      "after": [
+        "<C-o>",
+        "P"
+      ]
+    },
+    {
+      "before": [
+        "<C-j>"
+      ],
+      "after": [
+        "<C-n>"
+      ]
+    },
+    {
+      "before": [
+        "<C-k>"
+      ],
+      "after": [
+        "<C-p>"
+      ]
+    },
+    {
+      "before": [
+        "<A-j>",
+        "<A-k>"
+      ],
+      "after": [
+        "<Esc>"
+      ]
+    },
+    {
+      "before": [
+        "<A-a>"
+      ],
+      "after": [
+        "<Esc>",
+        "a"
+      ]
+    },
+    {
+      "before": [
+        "<A-S-a>"
+      ],
+      "after": [
+        "<Esc>",
+        "<S-a>"
+      ]
+    }
+  ],
+  "vim.incsearch": true,
+  "vim.hlsearch": true,
+  "vim.ignorecase": true,
+  "vim.smartcase": true,
+  "vim.showmatch": true,
+  "vim.whichwrap": "<,>,[,],h,l",
+}
