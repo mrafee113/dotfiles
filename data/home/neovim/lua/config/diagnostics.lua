@@ -1,0 +1,5 @@
+-- toggle Diagnostics (linting)
+vim.api.nvim_create_user_command("ToggleDiagnostics", function()
+	vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+end, {})
+vim.api.nvim_set_keymap("n", "<C-d>", ":ToggleDiagnostics<CR>", { noremap = true, silent = true })

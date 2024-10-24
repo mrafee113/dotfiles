@@ -14,5 +14,4 @@
 [advice]
 	detachedHead = false
 [safe]
-	directory = /run/media/francis/Silicon Power Speedy/Studio/Projects
 	directory = *

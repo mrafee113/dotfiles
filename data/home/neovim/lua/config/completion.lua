@@ -1,0 +1,2 @@
+-- disable preview in completion menu
+-- vim.opt.completeopt:remove("preview")

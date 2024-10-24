@@ -1,0 +1,39 @@
+beautifulsoup4
+soupsieve #combines-with-bs4
+chardet #the-universal-character-encoding-detector
+click
+colorama #colored-output
+django
+gTTS #google-text-to-speech
+ipython
+playsound
+requests
+setuptools
+urllib3
+virtualenv
+pillow #pil-python-imaging-library
+pyjwt #python-json-web-token#for-encoding&decoding-json-files
+pysocks
+pyyaml
+blinker #object-signaling-in-python
+cffi #c-foreign-function-interface#call-c-from-python
+coverage
+cryptography
+distro #provides-os-info
+django-environ
+djangorestframework
+docker
+docker-compose
+docopt #?
+importlib-metadata #access-python-package-metadata
+matplotlib
+mutagen #handle-audio-metadata
+numpy
+oauthlib
+pexpect #command-line-command-simulation-in-python
+psycopg2
+python-dateutil #extensions-to-the-standart-python-datetime
+redis
+selenium
+texttable
+

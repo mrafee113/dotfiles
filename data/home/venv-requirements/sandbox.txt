@@ -1,0 +1,8 @@
+ipython
+jdatetime
+lxml
+openpyxl
+pyexcel
+PyYAML
+requests
+urllib3
